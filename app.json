@@ -1,7 +1,7 @@
 {
-  "name": "Heroku Tomcat",
-  "description": "Heroku Java Web Application Using Embedded Tomcat",
-  "repository": "https://github.com/heroku/devcenter-embedded-tomcat",
+  "name": "Susan",
+  "description": "Meet Susan",
+  "repository": "https://github.com/saintplay/susan",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Tomcat-logo.svg",
   "keywords": [
     "java",

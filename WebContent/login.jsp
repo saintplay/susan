@@ -38,7 +38,7 @@
 
 		<div class="row marketing">
 			<div class="col-xs-12">
-				<form  action="usuario" method="post" class="form-horizontal">
+				<form  action="cliente" method="post" class="form-horizontal">
 				 	<input type="hidden" id="action" name="action" value="login">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="usuario">Usuario:</label>
@@ -50,13 +50,13 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pwd">Clave:</label>
 						<div class="col-sm-10">
-							<input type="Password" class="form-control" id="clave" name="clave" required
+							<input type="Password" class="form-control" id="contrasenia" name="contrasenia" required
 								placeholder="Ingrese su clave">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<a href="newusuario.jsp"><span aria-hidden="true"></span>
+							<a href="nuevo_cliente.jsp"><span aria-hidden="true"></span>
 								Nuevo usuario</a>
 						</div>
 					</div>

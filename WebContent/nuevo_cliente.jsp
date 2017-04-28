@@ -37,7 +37,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="nombre">Nombre:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="nombre" name="nombre"
+							<input type="text" class="form-control" id="nombres" name="nombres"
 								required placeholder="Ingrese su nombre">
 						</div>
 					</div>

@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,19 +16,40 @@ public class Conexion {
 		}
 
 		InputStream inputStream = Conexion.class.getClassLoader().getResourceAsStream("db.properties");
+		
 		Properties properties = new Properties();
-
-		try {
-			properties.load(inputStream);
-			String driver = properties.getProperty("driver");
-			String url = properties.getProperty("url");
-			String user = properties.getProperty("user");
-			String password = properties.getProperty("password");
-			Class.forName(driver);
-			cx = DriverManager.getConnection(url, user, password);
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+		String driver;
+        String url;
+        String user;
+        String password;
+		
+		if (inputStream != null) {
+			try {
+				properties.load(inputStream);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("No se pudo leer el archivo db.properties");
+			}
+			driver = properties.getProperty("DRIVER");
+            url = properties.getProperty("DBURL");
+            user = properties.getProperty("USER");
+            password = properties.getProperty("PASSWORD");
+		} else {
+			driver = System.getenv("DRIVER");
+            url = System.getenv("DBURL");
+            user = System.getenv("USER");
+            password = System.getenv("PASSWORD");
 		}
+		
+			try {
+				Class.forName(driver);
+				cx = DriverManager.getConnection(url, user, password);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("No se pudo conectar a la base de datos");
+			}
+
 		return cx;
 	}
 

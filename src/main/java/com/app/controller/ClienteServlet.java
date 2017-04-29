@@ -23,7 +23,12 @@ public class ClienteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logoutUsuario(request,response);
+		String action = request.getParameter("action");
+		switch (action) {
+		case "logout":
+			logoutUsuario(request, response);
+			break;
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

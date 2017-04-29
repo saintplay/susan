@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>Web</title>
+<title>Susan</title>
 
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,9 +27,15 @@
 
 <body>
 
-	<div class="container">
-		<jsp:include page="WEB-INF/fragmentos/menu.jsp"></jsp:include>
 
+	<div class="container">
+		 <jsp:include page="WEB-INF/fragmentos/menupanel.jsp"></jsp:include>
+
+		<div class="row marketing">
+			<div class="col-xs-12">
+			  <h3>Hola ${sessionScope.cliente.getNombres()}</h3>
+			</div>
+		</div>
 
 		<jsp:include page="WEB-INF/fragmentos/footer.jsp"></jsp:include>
 

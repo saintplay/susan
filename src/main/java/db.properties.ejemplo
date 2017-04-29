@@ -1,0 +1,5 @@
+DRIVER=com.mysql.jdbc.Driver
+CLEARDB_DATABASE_URL=jdbc:mysql://usuario:contrasenia@host/database
+DBURL=jdbc:mysql://host/database
+USER=user
+PASSWORD=password

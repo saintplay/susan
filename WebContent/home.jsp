@@ -1,3 +1,4 @@
+<%@ page language='java' contentType='text/html; charset=UTF-8' pageEncoding='UTF-8'%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <!DOCTYPE html>
 <html lang='es'>
@@ -30,7 +31,8 @@
 </style>
 
 <body>
-    <div class='container'>
+	<jsp:include page='WEB-INF/fragmentos/menu.jsp'></jsp:include>
+    <div class='container full-height'>
     	<div class='row' style='height: 42%'>
     		<div class='col-sm-offset-4 col-sm-4' style='height: 100%' align='center'>
     			<div id="logo-container"></div>
@@ -38,13 +40,15 @@
     	</div>
         <div class='row top-buffer'>
         	<div class='col-sm-offset-4 col-sm-2' align='center'>
-	            <button type='button' class='btn btn-brand brand-color-a'>Ingresar</button>
+	            <a type='button' class='btn btn-brand brand-color-a' href='/login.jsp'>Ingresar</a>
 	        </div>
         	<div class='col-sm-2' align='center'>
-	            <button type='button' class='btn btn-brand brand-color-b'>Registrarse</button>
+	            <a type='button' class='btn btn-brand brand-color-b' href='/nuevo_cliente.jsp'>Registrarse</a>
             </div>
         </div>
         <jsp:include page='WEB-INF/fragmentos/footer.jsp'></jsp:include>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
     </div>
 </body>
 </html>

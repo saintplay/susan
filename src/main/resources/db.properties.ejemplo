@@ -1,5 +1,5 @@
 DRIVER=com.mysql.jdbc.Driver
 CLEARDB_DATABASE_URL=jdbc:mysql://usuario:contrasenia@host/database
-DBURL=jdbc:mysql://host/database
+DBURL=jdbc:mysql://host/database?autoReconnect=true(importante el autoReconnect)
 USER=user
 PASSWORD=password

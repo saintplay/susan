@@ -20,10 +20,11 @@ public class Main {
         // Define port number for the web application
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
-            webPort = "8080";
+            webPort = "5000";
         }
         // Bind the port to Tomcat server
         tomcat.setPort(Integer.valueOf(webPort));
+        tomcat.getConnector().setURIEncoding("UTF-8");
  
         // Define a web application context.
         Context context = tomcat.addWebapp("", new File(

@@ -48,12 +48,13 @@ public class ClienteServlet extends HttpServlet {
 
 	protected void addUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		cliente = new Cliente();
-		cliente.setNombres(request.getParameter("nombres"));
-		cliente.setApellidos(request.getParameter("apellidos"));
-		cliente.setCorreo(request.getParameter("correo"));
-		cliente.setUsuario(request.getParameter("usuario"));
-		cliente.setContrasenia(request.getParameter("contrasenia"));
+		cliente.setNombres(Util.toUTF8(request.getParameter("nombres")));
+		cliente.setApellidos(Util.toUTF8(request.getParameter("apellidos")));
+		cliente.setCorreo(Util.toUTF8(request.getParameter("correo")));
+		cliente.setUsuario(Util.toUTF8(request.getParameter("usuario")));
+		cliente.setContrasenia(Util.toUTF8(request.getParameter("contrasenia")));
 
 		message = clienteService.agregar(cliente);
 		request.setAttribute("message", message);
@@ -62,8 +63,8 @@ public class ClienteServlet extends HttpServlet {
 
 	protected void loginUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String usuario=request.getParameter("usuario");
-		String contrasenia=request.getParameter("contrasenia");
+		String usuario=Util.toUTF8(request.getParameter("usuario"));
+		String contrasenia=Util.toUTF8(request.getParameter("contrasenia"));
 		String destino=null;
 		
 		cliente=clienteService.login(usuario, contrasenia);

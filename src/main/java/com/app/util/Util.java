@@ -1,6 +1,6 @@
 package com.app.util;
 import java.io.IOException;
-
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,5 +18,10 @@ public final class Util {
 		RequestDispatcher rd;
 		rd = request.getRequestDispatcher(destino);//Vista
 		rd.forward(request, response);
+	}
+	
+	public static String toUTF8(String isocharset)
+			throws UnsupportedEncodingException {
+		return new String(isocharset.getBytes("iso-8859-1"), "utf-8");
 	}
 }

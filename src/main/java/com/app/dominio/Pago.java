@@ -1,43 +1,65 @@
 package com.app.dominio;
 
+import java.sql.Timestamp;
+
 public class Pago {
-	private int Id;
-	private double monto;
-	private String fecha;
-        private int reserva_id;
-	
+	private int id;
+	private int reserva_id;
+	private Timestamp fecha;
+	private float monto;
+	private String estado;
+	private String modalidad;
+
 	public Pago() {
-		
+
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.Id = id;
+		this.id = id;
 	}
 
-	public Double getMonto() {
-		return monto;
+	public int getReservaId() {
+		return reserva_id;
 	}
 
-	public void setMonto(Double monto) {
-		this.monto = monto;
+	public void setReservaId(int reserva_id) {
+		this.reserva_id = reserva_id;
 	}
 
-	public String getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-        public void setFecha(String fecha) {
-                this.fecha = fecha;
-        }
-        public String getReservaId() {
-                return reserva_id;
-        }
+	public void setFecha(Timestamp fecha) {
+		this.fecha = fecha;
+	}
 
-        public void setReservaId(int reserva_id) {
-                this.reserva_id = reserva_id;
-        }
+	public float getMonto() {
+		return monto;
+	}
+	
+	public void setMonto(float monto) {
+		this.monto = monto;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getModalidad() {
+		return modalidad;
+	}
+
+	public void setModalidad(String modalidad) {
+		this.modalidad = modalidad;
+	}
+
 }

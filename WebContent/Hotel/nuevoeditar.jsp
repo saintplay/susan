@@ -32,7 +32,7 @@
 		</c:if>
   		
 		<form method='post' class='aligned-form'>
-			<h2 class='form-title'><c:if test='${empty editar}'>Registrar Nuevo </c:if>Hotel<c:if test='${not empty editar}'>${i.id}</c:if></h2>
+			<h2 class='form-title'><c:if test='${empty editar}'>Registrar Nuevo </c:if>Hotel<c:if test='${not empty editar}'> ${i.id}</c:if></h2>
 			<input type='hidden' id='action' name='action' value='guardar'>
 			<div class="form-group">
 				<input class="form-group" type='text' name='nombre' placeholder='Nombre' <c:if test='${not empty editar}'>value="${i.nombre}"</c:if> required/>

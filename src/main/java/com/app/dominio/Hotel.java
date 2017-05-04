@@ -3,7 +3,7 @@ package com.app.dominio;
 public class Hotel {
 	private int Id;
 	private String nombre;
-	private String calificacion;
+	private int calificacion;
 	private String direccion;
 	
 	public Hotel() {
@@ -26,7 +26,7 @@ public class Hotel {
 		this.nombre = nombre;
 	}
 
-	public String getCalificacion() {
+	public int getCalificacion() {
 		return calificacion;
 	}
 
@@ -38,7 +38,7 @@ public class Hotel {
 		this.direccion = direccion;
 	}
 
-        public void setCalificacion(String calificacion) {
+        public void setCalificacion(int calificacion) {
                 this.calificacion = calificacion;
         }
 

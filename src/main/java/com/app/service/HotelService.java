@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.List;
+
 import com.app.dao.HotelDAO;
 import com.app.dominio.Hotel;
 

@@ -57,24 +57,20 @@ public class HabitacionServlet extends HttpServlet {
 	}
 	
 	protected void recargarlista() {
-		lista = habitacionService();
+		lista = habitacionService.listarTodos();
 	}
 	
 	protected void listartodos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		recargarlista();
 		
+		request.setAttribute("message", message);
+		Util.forward(request, response, "/login.jsp");
 	}
 
 	protected void mostrarporid(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		habitacion = new Habitacion();
-		habitacion.setNombres(Util.toUTF8(request.getParameter("nombres")));
-		habitacion.setApellidos(Util.toUTF8(request.getParameter("apellidos")));
-		habitacion.setCorreo(Util.toUTF8(request.getParameter("correo")));
-		habitacion.setUsuario(Util.toUTF8(request.getParameter("usuario")));
-		habitacion.setContrasenia(Util.toUTF8(request.getParameter("contrasenia")));
-
 		message = habitacionService.agregar(habitacion);
 		request.setAttribute("message", message);
 		Util.forward(request, response, "/login.jsp");
@@ -85,8 +81,6 @@ public class HabitacionServlet extends HttpServlet {
 		String usuario=Util.toUTF8(request.getParameter("usuario"));
 		String contrasenia=Util.toUTF8(request.getParameter("contrasenia"));
 		String destino=null;
-		
-		habitacion=habitacionService.login(usuario, contrasenia);
 		
 		if(habitacion==null){
 			message="Usuario no registrado";

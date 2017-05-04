@@ -21,7 +21,7 @@
 
 <body>
 
-	<jsp:include page='../WEB-INF/fragmentos/menu.jsp'></jsp:include>
+	<jsp:include page='WEB-INF/fragmentos/menu.jsp'></jsp:include>
 	<div class='container'>
 		<c:if test='${not empty message}'>
 		    <div class='row'>
@@ -39,15 +39,39 @@
 					    <div class='col-sm-12'>
 					    	<h3><strong>${i.nombre}</strong></h3>
 					    </div>
-				   	</div>
+				   	</div>			   	
 				    <div class='row'>
 					    <div class='col-sm-12'>
-					    	<span><strong>Direccion:</strong> ${i.direccion}</span>
+					    	<c:forEach var="hotel" items="${hoteles}">
+					    		<c:if test="${hotel.id == i.hotel_id}">
+					    			<span><strong>Hotel:</strong> <a href="/hotel?action=mostrarporid&hotel_id=${hotel.id}">${hotel.nombre}</a></span>
+					    		</c:if>
+					    	</c:forEach>
 					    </div>
 				   	</div>
 				    <div class='row'>
 					    <div class='col-sm-12'>
-					    	<span><strong>Calificacion:</strong> ${i.calificacion}</span>
+					    	<span><strong>Piso:</strong> ${i.piso}</span>
+					    </div>
+				   	</div>
+				    <div class='row'>
+					    <div class='col-sm-12'>
+					    	<span><strong>Tipo:</strong> ${i.tipo}</span>
+					    </div>
+				   	</div>	
+				    <div class='row'>
+					    <div class='col-sm-12'>
+					    	<span><strong>Descripcion:</strong> ${i.descripcion}</span>
+					    </div>
+				   	</div>
+				    <div class='row'>
+					    <div class='col-sm-12'>
+					    	<span><strong>Foto:</strong> ${i.foto}</span>
+					    </div>
+				   	</div>  	
+				    <div class='row'>
+					    <div class='col-sm-12'>
+					    	<span><strong>Precio:</strong> ${i.precio}</span>
 					    </div>
 				   	</div>
 		    	</div>

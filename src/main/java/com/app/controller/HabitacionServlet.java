@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,19 +20,24 @@ public class HabitacionServlet extends HttpServlet {
 
 	private HabitacionService habitacionService = new HabitacionService();
 	private Habitacion habitacion;
+	private List<Habitacion> lista;
 	private String message;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-		case "mostrarporid":
-			mostrarporid(request, response);
-			break;
-		case "editarporid":
-			editarporid(request, response);
-		case "agregarnuevo":
-			agregarnuevo(request, response);
+			case "mostrarporid":
+				mostrarporid(request, response);
+				break;
+			case "editarporid":
+				editarporid(request, response);
+				break;
+			case "agregarnuevo":
+				agregarnuevo(request, response);
+				break;
+			default:
+				listartodos(request, response);
 		}
 	}
 
@@ -39,15 +45,24 @@ public class HabitacionServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
-		case "add":
-			addUsuario(request, response);
+		case "guardar":
+			guardar(request, response);
 			break;
 
-		case "login":
-			loginUsuario(request, response);
+		case "actualizarporid":
+			actualizarporid(request, response);
 			break;
 
 		}
+	}
+	
+	protected void recargarlista() {
+		lista = habitacionService();
+	}
+	
+	protected void listartodos(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 	}
 
 	protected void mostrarporid(HttpServletRequest request, HttpServletResponse response)
@@ -88,6 +103,18 @@ public class HabitacionServlet extends HttpServlet {
 	}
 
 	protected void agregarnuevo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getSession().invalidate();
+		Util.forward(request, response, "/login.jsp");
+	}
+	
+	protected void guardar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getSession().invalidate();
+		Util.forward(request, response, "/login.jsp");
+	}
+	
+	protected void actualizarporid(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getSession().invalidate();
 		Util.forward(request, response, "/login.jsp");

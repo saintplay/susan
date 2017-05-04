@@ -53,6 +53,7 @@ body {
 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
 	background: #fff;
 	padding-bottom: 20px;
+	padding-right: 15px;
 }
 .aligned-form {
 	margin: 50px auto;

@@ -39,11 +39,11 @@ public class Habitacion {
 	}
 
     public int getHotelId() {
-            return hotel_id;
+        return hotel_id;
     }
 
     public void setHotelId(int hotel_id) {
-            this.hotel_id = hotel_id;
+        this.hotel_id = hotel_id;
     }
 
 	public int getTipo() {

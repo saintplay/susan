@@ -42,6 +42,7 @@ public class HabitacionDAO {
 	public List<Habitacion> listarTodos() {
 		List<Habitacion> lista = new ArrayList<>();
 
+		sql = "{call sp_listarhabitacion()}";
 		try {
 			CallableStatement cs = cn.prepareCall(sql);
 			ResultSet rs = cs.executeQuery();

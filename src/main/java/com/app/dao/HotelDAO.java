@@ -54,6 +54,8 @@ public class HotelDAO {
 
 	public List<Hotel> listarTodos() {
 		List<Hotel> lista = new ArrayList<>();
+		
+		sql = "{call sp_listarhoteles()}";
 
 		try {
 			CallableStatement cs = cn.prepareCall(sql);

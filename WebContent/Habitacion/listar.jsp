@@ -32,8 +32,8 @@
 		</c:if>
   
 	  	<c:forEach var='i' items='${list}'>
-	    <div class='row'>
-		    <div class='col-sm-12' align='center'>
+	    <div class='row card'>
+		    <div class='col-sm-12'>
 		    	<div class='container'>
 				    <div class='row'>
 					    <div class='col-sm-12'>

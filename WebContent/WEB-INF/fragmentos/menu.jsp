@@ -13,8 +13,9 @@
         </div>
         <div class="collapse navbar-collapse" id="menu-opciones">
             <ul class="nav navbar-nav">
-               	<li <c:if test="${pageContext.request.requestURI == '/hoteles'}">class='active'</c:if>><a href="#">Hoteles</a></li>	
-                <li <c:if test="${pageContext.request.requestURI == '/about.jsp'}">class='active'</c:if>><a href="#">Acerca De</a></li>	
+               	<li <c:if test="${pageContext.request.requestURI == '/hotel'}">class='active'</c:if>><a href="/hotel">Hoteles</a></li>
+               	<li <c:if test="${pageContext.request.requestURI == '/habitacion'}">class='active'</c:if>><a href="/habitacion">Habitaciones</a></li>
+                <li <c:if test="${pageContext.request.requestURI == '/about.jsp'}">class='active'</c:if>><a href="https://github.com/saintplay/susan">Acerca De</a></li>	
             </ul>
             <c:choose>
 	            <c:when test="${sessionScope.cliente!=null}">

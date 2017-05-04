@@ -32,8 +32,8 @@
 		</c:if>
   
 	  	<c:forEach var='i' items='${list}'>
-	    <div class='row'>
-		    <div class='col-sm-12' align='center'>
+	    <div class='row card'>
+		    <div class='col-sm-12'>
 		    	<div class='container'>
 				    <div class='row'>
 					    <div class='col-sm-12'>
@@ -42,12 +42,12 @@
 				   	</div>
 				    <div class='row'>
 					    <div class='col-sm-12'>
-					    	<span><strong>Direccion:</strong> ${i.direccion}</span>
+					    	<span><strong>Dirección:</strong> ${i.direccion}</span>
 					    </div>
 				   	</div>
 				    <div class='row'>
 					    <div class='col-sm-12'>
-					    	<span><strong>Calificacion:</strong> ${i.calificacion}</span>
+					    	<span><strong>Calificación:</strong> ${i.calificacion}</span>
 					    </div>
 				   	</div>
 		    	</div>

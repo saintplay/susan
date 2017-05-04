@@ -46,6 +46,14 @@ body {
 	 background: #fff;
 	 letter-spacing: 2px;
 }
+.row.card {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 6px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	background: #fff;
+	padding-bottom: 20px;
+}
 .aligned-form {
 	margin: 50px auto;
 	text-align: center;

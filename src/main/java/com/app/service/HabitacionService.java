@@ -14,4 +14,7 @@ public class HabitacionService {
 	public String agregar(Habitacion c){
 		return udao.agregar(c);
 	}
+        public List<Habitacion> listarTodos() {
+                return udao.listarTodos();
+        }
 }

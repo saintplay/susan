@@ -14,4 +14,7 @@ public class HotelService {
 	public String agregar(Hotel c){
 		return udao.agregar(c);
 	}
+        public List<Hotel> listarTodos() {
+                return udao.listarTodos();
+        }
 }

@@ -14,4 +14,7 @@ public class ReservaService {
 	public String agregar(Reserva c){
 		return udao.agregar(c);
 	}
+        public List<Reserva> listarTodos() {
+                return udao.listarTodos();
+        }
 }

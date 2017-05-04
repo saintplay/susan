@@ -14,4 +14,7 @@ public class OpinionService {
 	public String agregar(Opinion c){
 		return udao.agregar(c);
 	}
+        public List<Opinion> listarTodos() {
+                return udao.listarTodos();
+        }
 }

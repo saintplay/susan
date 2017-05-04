@@ -14,4 +14,7 @@ public class ServicioService {
 	public String agregar(Servicio c){
 		return udao.agregar(c);
 	}
+        public List<Servicio> listarTodos() {
+                return udao.listarTodos();
+        }
 }

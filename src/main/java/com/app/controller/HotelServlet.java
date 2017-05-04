@@ -57,48 +57,49 @@ public class HotelServlet extends HttpServlet {
 	}
 	
 	protected void recargarlista() {
-		lista = hotelService();
+		lista = hotelService.listarTodos();
 	}
 	
 	protected void listartodos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		recargarlista();
+
+		request.setAttribute("list", lista);
+		Util.forward(request, response, "/login.jsp");
 	}
 
 	protected void mostrarporid(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		recargarlista();
 		hotel = new Hotel();
-		hotel.setNombres(Util.toUTF8(request.getParameter("nombres")));
-		hotel.setApellidos(Util.toUTF8(request.getParameter("apellidos")));
-		hotel.setCorreo(Util.toUTF8(request.getParameter("correo")));
-		hotel.setUsuario(Util.toUTF8(request.getParameter("usuario")));
-		hotel.setContrasenia(Util.toUTF8(request.getParameter("contrasenia")));
 
-		message = hotelService.agregar(hotel);
-		request.setAttribute("message", message);
-		Util.forward(request, response, "/login.jsp");
+		int hotel_id = Integer.parseInt(request.getParameter("hotel_id"));
+		
+		for(Hotel h : lista) {
+	        if(h.getId() == hotel_id) {
+	            hotel =  h;
+	            break;
+	        }
+	    }		
+
+		request.setAttribute("i", hotel);
+		Util.forward(request, response, "/Hotel/verporid.jsp");
 	}
 
 	protected void editarporid(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String usuario=Util.toUTF8(request.getParameter("usuario"));
-		String contrasenia=Util.toUTF8(request.getParameter("contrasenia"));
-		String destino=null;
+		request.setCharacterEncoding("UTF-8");
+		recargarlista();
 		
-		hotel=hotelService.login(usuario, contrasenia);
+		int hotel_id = Integer.parseInt(request.getParameter("hotel_id"));
+		hotel = new Hotel();
 		
-		if(hotel==null){
-			message="Usuario no registrado";
-			request.setAttribute("message", message);
-			destino="/login.jsp";
-			
-		}else{
-			Session.put(request, "hotel", hotel);
-			destino="/panel.jsp";
-		}
+		hotel.setId(hotel_id);
+		hotel.setNombre(Util.toUTF8(request.getParameter("nombre")));
+		hotel.setCalificacion(Integer.parseInt(Util.toUTF8(request.getParameter("calificacion"))));
+		hotel.setDireccion(Util.toUTF8(request.getParameter("direccion")));
 		
-		Util.forward(request, response, destino);
+		Util.forward(request, response, "/Hotel/listar.jsp");
 
 	}
 

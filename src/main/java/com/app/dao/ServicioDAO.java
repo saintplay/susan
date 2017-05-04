@@ -31,5 +31,25 @@ public class ServicioDAO {
 		}
 		return respuesta;
 	}
+        public List<Servicio> listarTodos() {
+                List<Servicio> lista = new ArrayList<>();
+
+                try {
+                        CallableStatement cs = cn.prepareCall(sql);
+                        ResultSet rs = cs.executeQuery();
+                        while (rs.next()) {
+                                Servicio h = new Servicio();
+                                h.setId(rs.getInt(1));
+                                h.setNombre(rs.getString(2));
+                                h.setDescripcion(rs.getString(3));
+                                lista.add(h);
+                        }
+                        rs.close();
+                        cs.close();
+                } catch (Exception e) {
+                        lista = null;
+                }
+                return lista;
+        }
 
 }

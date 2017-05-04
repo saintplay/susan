@@ -32,5 +32,27 @@ public class OpinionDAO {
 		}
 		return respuesta;
 	}
+        public List<Opinion> listarTodos() {
+                List<Opinion> lista = new ArrayList<>();
+
+                try {
+                        CallableStatement cs = cn.prepareCall(sql);
+                        ResultSet rs = cs.executeQuery();
+                        while (rs.next()) {
+                                Opinion h = new Opinion();
+                                h.setId(rs.getInt(1));
+                                h.setNombre(rs.getString(2));
+                                h.setDescripcion(rs.getString(3));
+                                h.setHotelId(rs.getInt(4));
+                                h.setHabitacionId(rs.getInt(5));
+                                lista.add(h);
+                        }
+                        rs.close();
+                        cs.close();
+                } catch (Exception e) {
+                        lista = null;
+                }
+                return lista;
+        }
 
 }

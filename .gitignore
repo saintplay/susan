@@ -13,3 +13,5 @@ src/main/resources/db.properties
 .classpath
 .project
 .settings/
+
+*.swp

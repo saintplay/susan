@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.app.dominio.Reserva;
 
@@ -18,13 +20,15 @@ public class ReservaDAO {
 
 	public String agregar(Reserva c) {
 		try {
-			sql = "{call sp_agregar_reserva(?,?,?,?,?)}";
+			sql = "{call sp_agregar_reserva(?,?,?,?,?,?,?)}";
 			CallableStatement cs = cn.prepareCall(sql);
-			cs.setString(1, c.getNombre());
-			cs.setInt(2, c.getClienteId());
-                        cs.setString(3, c.getFechaDesde());
-                        cs.setString(4, c.getFechaHasta());
-                        cs.setInt(5, c.getHotelId());
+			cs.setInt(1, c.getClienteId());
+			cs.setInt(2, c.getHabitacionId());
+            cs.setTimestamp(3, c.getFechaDesde());
+            cs.setTimestamp(4, c.getFechaHasta());
+            cs.setString(5, c.getEstado());
+            cs.setString(6, c.getTipo());
+            cs.setFloat(7, c.getCosto_total());
 			cs.executeUpdate();
 			cs.close();
 			respuesta = "Registro Correcto";
@@ -42,11 +46,13 @@ public class ReservaDAO {
                         while (rs.next()) {
                                 Reserva h = new Reserva();
                                 h.setId(rs.getInt(1));
-                                h.setNombre(rs.getString(2));
-                                h.setClienteId(rs.getInt(3));
-                                h.setFechaDesde(rs.getInt(4));
-                                h.setFechaHasta(rs.getString(5));
-                                h.setHotelId(rs.getInt(6));
+                                h.setClienteId(rs.getInt(2));
+                                h.setHabitacionId(rs.getInt(3));
+                                h.setFechaDesde(rs.getTimestamp(4));
+                                h.setFechaHasta(rs.getTimestamp(5));
+                                h.setEstado(rs.getString(6));
+                                h.setTipo(rs.getString(7));
+                                h.setCosto_total(rs.getFloat(8));
                                 lista.add(h);
                         }
                         rs.close();

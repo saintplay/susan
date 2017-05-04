@@ -1,11 +1,14 @@
 package com.app.dominio;
 
+import java.sql.Timestamp;
+
 public class Opinion {
 	private int Id;
-	private String nombre;
-	private String descripcion;
-        private int hotel_id;
-        private int habitacion_id;
+	private int cliente_id;
+	private int hotel_id;
+    private int habitacion_id;
+    private Timestamp fecha;
+    private String texto;
 	
 	public Opinion() {
 		
@@ -19,33 +22,42 @@ public class Opinion {
 		this.Id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+    public int getHotelId() {
+            return hotel_id;
+    }
+
+    public void setHotelId(int hotel_id) {
+            this.hotel_id = hotel_id;
+    }
+    public int getHabitacionId() {
+            return habitacion_id;
+    }
+
+    public void setHabitacionId(int habitacion_id) {
+            this.habitacion_id = habitacion_id;
+    }
+
+	public String getTexto() {
+		return texto;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public Timestamp getFecha() {
+		return fecha;
 	}
 
-        public void setDescripcion(String descripcion) {
-                this.descripcion = descripcion;
-        }
-        public String getHotelId() {
-                return hotel_id;
-        }
+	public void setFecha(Timestamp fecha) {
+		this.fecha = fecha;
+	}
 
-        public void setHotelId(int hotel_id) {
-                this.hotel_id = hotel_id;
-        }
-        public String getHabitacionId() {
-                return habitacion_id;
-        }
+	public int getCliente_id() {
+		return cliente_id;
+	}
 
-        public void setHabitacionId(int habitacion_id) {
-                this.habitacion_id = habitacion_id;
-        }
+	public void setCliente_id(int cliente_id) {
+		this.cliente_id = cliente_id;
+	}
 }

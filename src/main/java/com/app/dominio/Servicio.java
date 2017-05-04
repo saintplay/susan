@@ -4,7 +4,7 @@ public class Servicio {
 	private int Id;
 	private String nombre;
 	private String descripcion;
-        private int hotel_id;
+    private float costo;
 	
 	public Servicio() {
 		
@@ -30,14 +30,14 @@ public class Servicio {
 		return descripcion;
 	}
 
-        public void setDescripcion(String descripcion) {
-                this.descripcion = descripcion;
-        }
-        public String getHotelId() {
-                return hotel_id;
-        }
+    public void setDescripcion(String descripcion) {
+            this.descripcion = descripcion;
+    }
+    public float getCosto() {
+            return costo;
+    }
 
-        public void setHotelId(int hotel_id) {
-                this.hotel_id = hotel_id;
-        }
+    public void setCosto(float costo) {
+            this.costo = costo;
+    }
 }

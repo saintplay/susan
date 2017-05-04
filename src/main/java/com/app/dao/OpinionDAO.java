@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.app.dominio.Opinion;
 
@@ -20,10 +22,11 @@ public class OpinionDAO {
 		try {
 			sql = "{call sp_agregar_opinion(?,?,?,?)}";
 			CallableStatement cs = cn.prepareCall(sql);
-			cs.setString(1, c.getNombre());
-			cs.setInt(2, c.getDescripcion());
-                        cs.setInt(3, c.getHotelId());
-                        cs.setInt(4, c.getHabitacionId());
+			cs.setInt(1, c.getCliente_id());
+			cs.setInt(2, c.getHotelId());
+            cs.setInt(3, c.getHabitacionId());
+            cs.setTimestamp(4, c.getFecha());
+            cs.setString(4, c.getTexto());
 			cs.executeUpdate();
 			cs.close();
 			respuesta = "Registro Correcto";
@@ -39,13 +42,14 @@ public class OpinionDAO {
                         CallableStatement cs = cn.prepareCall(sql);
                         ResultSet rs = cs.executeQuery();
                         while (rs.next()) {
-                                Opinion h = new Opinion();
-                                h.setId(rs.getInt(1));
-                                h.setNombre(rs.getString(2));
-                                h.setDescripcion(rs.getString(3));
-                                h.setHotelId(rs.getInt(4));
-                                h.setHabitacionId(rs.getInt(5));
-                                lista.add(h);
+                            Opinion h = new Opinion();
+                            h.setId(rs.getInt(1));
+                            h.setCliente_id(rs.getInt(2));
+                            h.setHotelId(rs.getInt(3));
+                            h.setHabitacionId(rs.getInt(4));
+                            h.setFecha(rs.getTimestamp(5));
+                            h.setTexto(rs.getString(6));
+                            lista.add(h);
                         }
                         rs.close();
                         cs.close();

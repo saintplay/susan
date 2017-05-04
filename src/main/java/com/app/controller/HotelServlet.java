@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.app.dominio.Hotel;
 import com.app.service.HotelService;
-import com.app.util.Session;
 import com.app.util.Util;
 
 @WebServlet(name = "HotelServlet", urlPatterns = { "/hotel" })
@@ -26,18 +25,22 @@ public class HotelServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		switch (action) {
-			case "mostrarporid":
-				mostrarporid(request, response);
-				break;
-			case "editarporid":
-				editarporid(request, response);
-				break;
-			case "agregarnuevo":
-				agregarnuevo(request, response);
-				break;
-			default:
-				listartodos(request, response);
+		
+		if (action != null)
+			switch (action) {
+				case "mostrarporid":
+					mostrarporid(request, response);
+					break;
+				case "editarporid":
+					editarporid(request, response);
+					break;
+				case "agregarnuevo":
+					agregarnuevo(request, response);
+					break;
+					
+			} 
+		else {
+			listartodos(request, response);
 		}
 	}
 
@@ -65,7 +68,7 @@ public class HotelServlet extends HttpServlet {
 		recargarlista();
 
 		request.setAttribute("list", lista);
-		Util.forward(request, response, "/login.jsp");
+		Util.forward(request, response, "/Hotel/listar.jsp");
 	}
 
 	protected void mostrarporid(HttpServletRequest request, HttpServletResponse response)

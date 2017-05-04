@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.app.dominio.Servicio;
 
@@ -22,7 +24,7 @@ public class ServicioDAO {
 			CallableStatement cs = cn.prepareCall(sql);
 			cs.setString(1, c.getNombre());
 			cs.setString(2, c.getDescripcion());
-                        cs.setInt(3, c.getHotelId());
+            cs.setFloat(3, c.getCosto());
 			cs.executeUpdate();
 			cs.close();
 			respuesta = "Registro Correcto";
@@ -42,6 +44,7 @@ public class ServicioDAO {
                                 h.setId(rs.getInt(1));
                                 h.setNombre(rs.getString(2));
                                 h.setDescripcion(rs.getString(3));
+                                h.setCosto(rs.getFloat(4));
                                 lista.add(h);
                         }
                         rs.close();

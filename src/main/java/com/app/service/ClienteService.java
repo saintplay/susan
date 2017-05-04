@@ -14,8 +14,7 @@ public class ClienteService {
 	public String agregar(Cliente c){
 		return udao.agregar(c);
 	}
-	
-	
+
 	public Cliente login(String user, String pass){
 		return udao.login(user, pass);
 	}

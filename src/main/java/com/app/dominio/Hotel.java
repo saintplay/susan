@@ -30,7 +30,16 @@ public class Hotel {
 		return calificacion;
 	}
 
+        public String getDireccion() {
+                return this.direccion;
+        }
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+        public void setCalificacion(String calificacion) {
+                this.calificacion = calificacion;
+        }
+
 }

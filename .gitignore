@@ -1,17 +1,24 @@
-target
-tomcat.8080
-tomcat.5000
+target/
+!.mvn/wrapper/maven-wrapper.jar
 
-src/main/resources/db.properties
-
-# IntelliJ Idea project files
-.idea
-*.iml
-
-.env
-
+### STS ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
+.settings
+.springBeans
 
-*.swp
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/

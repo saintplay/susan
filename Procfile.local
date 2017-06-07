@@ -1,1 +1,0 @@
-web: java -jar target/dependency/jetty-runner.jar --port 3000 target/Susan-1.0.0.jar

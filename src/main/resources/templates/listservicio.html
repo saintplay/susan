@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset='utf-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta name='description' content='Meet Susan' />
+    <meta name='author' content='UPC Lab' />
+    <link rel='icon' href='../../favicon.ico' />
+    <title>Servicios | Susan</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/susan-base.css}" ref="../../css/susan-base.css" />
+</head>
+
+<body>
+    <div th:replace="fragments/menu :: menu">&nbsp;</div>
+    <div class="panel panel-default" style="margin:10px">
+
+        <div class="panel-heading">
+            <h1 class="panel-title">Servicios</h1>
+        </div>
+
+        <div class="panel-body">
+
+            <form class="form-inline" method="POST" th:action="@{/servicios/search}" style="margin:20px 0">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="texto" placeholder="Name" />
+
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+
+            <form class="form-inline" method="POST" th:action="@{/servicios/new}" style="margin:20px 0">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">New</button>
+                </div>
+            </form>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Costo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicio:${servicios}">
+                        <td th:text="${servicio.id}"></td>
+                        <td th:text="${servicio.nombre}"></td>
+                        <td th:text="${servicio.descripcion}"></td>
+                        <td th:text="${servicio.costo}"></td>
+                        <td><a th:href="${'/servicios/id/' + servicio.id}">Editar</a></td>
+                        <td><a th:href="${'/servicios/delete/' + servicio.id}">Eliminar</a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

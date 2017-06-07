@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
+	rel="stylesheet" />
+</head>
+<body>
+  
+   <div class="panel panel-default" style="margin:10px">
+   
+      <div class="panel-heading">
+      	<h1 class="panel-title">Teachers-ACADEMYWEB</h1>
+      </div>
+   
+   	  <div class="panel-body">
+          <form class="form-inline" method="POST" th:action="@{/teachers}" 
+              th:object="${teacher}" style="margion:20px 0">
+              <div class="form-group">
+                <input type="text" class="form-control" id="id" 
+                th:field="*{id}" placeholder="Id"/>
+                
+                 <input type="text" class="form-control" id="name" 
+                th:field="*{name}" placeholder="Name"/>
+                
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+          </form>
+          
+          <table class="table">
+            <thead>
+            		<tr>
+            		  <th>Id</th>
+            		  <th>Name</th>
+            		</tr>
+            </thead>
+            <tbody>
+            		<tr th:each="teacher:${teachers}">
+            			<td th:text="${teacher.id}"></td>
+            			<td th:text="${teacher.name}"></td>
+            		</tr>	  
+            	</tbody>
+          </table>
+      </div>
+   </div>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+web: java -Dserver.port=3000 -jar target/Susan-1.0.0.jar

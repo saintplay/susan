@@ -54,7 +54,8 @@
                         <td th:text="${hotel.nombre}"></td>
                         <td th:text="${hotel.calificacion}"></td>
                         <td th:text="${hotel.direccion}"></td>
-                        <td><a th:href="${'/hoteles/' + hotel.id}">Edit</a></td>
+                        <td><a th:href="${'/hoteles/id/' + hotel.id}">Editar</a></td>
+                        <td><a th:href="${'/hoteles/delete/' + hotel.id}">Eliminar</a></td>
 
                     </tr>
                 </tbody>

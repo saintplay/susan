@@ -20,11 +20,7 @@ public class Hotel {
 	@Size(min = 4, max = 30, message = "nombre debe tener mas de 4 letras y menos de 30")
 	private String nombre;
 
-	@NotNull
 	private int calificacion;
-
-	@NotBlank
-	@Max(value = 200)
 	private String direccion;
 
 	public Hotel() {
@@ -62,12 +58,4 @@ public class Hotel {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
-	// esto es para probrar en consola
-	@Override
-	public String toString() {
-		return "Hotel [id=" + id + ", nombre=" + nombre + ", calificacion=" + calificacion + ", direccion=" + direccion
-				+ "]";
-	}
-
 }

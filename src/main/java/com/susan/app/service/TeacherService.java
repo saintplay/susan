@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.susan.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Teacher;
+import com.susan.app.entity.Teacher;
 
 @Service
 public class TeacherService implements ITeacherService {

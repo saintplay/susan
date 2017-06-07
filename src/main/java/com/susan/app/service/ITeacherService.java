@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.susan.app.service;
 
 import java.util.List;
 
-import com.example.demo.entity.Teacher;
+import com.susan.app.entity.Teacher;
 
 public interface ITeacherService {
   public List<Teacher> findAll();

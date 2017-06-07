@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.susan.app.entity;
 
 import javax.validation.constraints.Size;
 

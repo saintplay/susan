@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.susan.app.controller;
 
 import javax.validation.Valid;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.entity.Teacher;
-import com.example.demo.service.ITeacherService;
+import com.susan.app.entity.Teacher;
+import com.susan.app.service.ITeacherService;
 
 @Controller
 @RequestMapping("/")

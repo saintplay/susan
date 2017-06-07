@@ -1,11 +1,18 @@
 package com.susan.app.service;
 
-import java.util.List;
 
 import com.susan.app.entity.Teacher;
 
 public interface ITeacherService {
-  public List<Teacher> findAll();
-  
-  public void save(Teacher teacher);
+	public Iterable<Teacher> findAll();
+
+	public void save(Teacher teacher);
+
+	public Teacher findOne(Long id);
+
+	public void delete(Long id);
+	
+	//public Iterable<Teacher> findByNameContaining(String name);
+	public Teacher findByName(String name);
+
 }

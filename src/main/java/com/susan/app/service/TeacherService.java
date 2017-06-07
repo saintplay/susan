@@ -1,32 +1,48 @@
 package com.susan.app.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.susan.app.entity.Teacher;
+import com.susan.app.repository.TeacherRepository;
 
 @Service
 public class TeacherService implements ITeacherService {
 
-	private static final List<Teacher> LIST_TEACHER=new  ArrayList<>();
-	
-	static{
-		LIST_TEACHER.add(new Teacher(1L, "Henry Mendoza Puerta"));
-		LIST_TEACHER.add(new Teacher(2L, "Patricia Plasencia Burgos"));
-	}
+	@Autowired
+	private TeacherRepository teacherRepository;
 	
 	@Override
-	public List<Teacher> findAll() {
+	public Iterable<Teacher> findAll() {
 		// TODO Auto-generated method stub
-		return TeacherService.LIST_TEACHER;
+		return teacherRepository.findAll();
 	}
 
 	@Override
 	public void save(Teacher teacher) {
 		// TODO Auto-generated method stub
-		TeacherService.LIST_TEACHER.add(teacher);
+		teacherRepository.save(teacher);
+	}
+
+	@Override
+	public Teacher findOne(Long id) {
+		// TODO Auto-generated method stub
+		return teacherRepository.findOne(id);
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		teacherRepository.delete(id);
+	}
+
+	@Override
+	public Teacher findByName(String name) {
+		// TODO Auto-generated method stub
+		return teacherRepository.findByName(name);
 	}
 
 }

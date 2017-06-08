@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.susan.app.entity.Course;
 import com.susan.app.entity.Hotel;
 import com.susan.app.service.IHotelService;
 

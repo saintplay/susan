@@ -1,4 +1,7 @@
-# SUSAN #
+<div align="center">
+  <img src="https://cdn.rawgit.com/saintplay/susan/master/src/main/resources/static/img/susan.svg" width="1200">
+</div>
+
 ## PRE-REQUISITOS ##
 
 - Tener Java jdk (> 1.8) en el sistema
@@ -15,3 +18,7 @@
 4. `mvn package` (*ejecutar despues de cambiar el código*) 
 5. `heroku local -f Procfile.windows`
 6. **Listo!** El proyecto utilizará el puerto 3000 por defecto; para acceder a la aplicación entrar a <http://localhost:3000/> en un navegador.
+
+<div align="center">
+  <img src="https://cloud.githubusercontent.com/assets/9372893/16879913/501dca4a-4a78-11e6-9783-3600e0b260d8.png">
+</div>

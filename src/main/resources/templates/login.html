@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Libreria Virtual</title>
+</head>
+<body>
+
+	<form th:action="@{/logincheck}" method="POST">
+	    <!-- evitar algunas bulnerabilidades web -->
+		<input type="hidden" name="${_csrf.parameterName}" 
+		   value="${_csrf.token}"/>
+		
+		<h2>Ingreso</h2>
+		Usuario: <input type="text"  name="username" 
+		   id="username" placeholder="Username" /> <br/> 
+		 
+		Clave: <input type="password" name="password" id="password" placeholder="Password" /> <br/>
+		 
+		<button  type="submit">
+			Ingreso
+		</button>
+		
+		<div th:if="${error!=null}">Usuario o clave incorrecto</div>
+		<div th:if="${logout!=null}">Logout correcto</div>
+	</form>
+
+</body>
+</html>

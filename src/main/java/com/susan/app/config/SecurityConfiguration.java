@@ -27,9 +27,8 @@ public class SecurityConfiguration
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
 		http.authorizeRequests()
-			.antMatchers( "/", "/about").permitAll()
+			.antMatchers( "/", "/about", "hoteles").permitAll()
 			.antMatchers("/css/*","/imgs/*").permitAll()
 			.anyRequest().authenticated()
 			.and()

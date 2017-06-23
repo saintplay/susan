@@ -57,7 +57,7 @@ public class User {
 		return enable;
 	}
 
-	public void setEnable(boolean enabled) {
+	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
 

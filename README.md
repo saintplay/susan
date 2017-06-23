@@ -15,7 +15,7 @@
 *(El script no crea la base de datos, solo crea y/o actualiza las tablas)*
 2. Crear un archivo "**.env**" en la raíz del proyecto. Llenar los datos de acceso a la base de datos en dicho archivo. (*Guiarse de "**.env.example**"*)
 3. `mvn install` (*ejecutar solo para descargar las librerias*)
-4. `mvn package` (*ejecutar despues de cambiar el código*) 
+4. `mvn package` (*ejecutar despues de cambiar el c�digo*) 
 5. `heroku local -f Procfile.windows`
 6. **Listo!** El proyecto utilizará el puerto 3000 por defecto; para acceder a la aplicación entrar a <http://localhost:3000/> en un navegador.
 

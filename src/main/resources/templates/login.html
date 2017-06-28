@@ -52,10 +52,10 @@
 		<div class='col-offset-2 col-5' align='center'>
 			<div class="wrapper">
 				<form class="form-signin" th:action="@{/logincheck}" method="POST">
-					<h2 class="form-signin-heading">Iniciar Sesión</h2>
+					<h2 class="form-signin-heading">Iniciar SesiÃ³n</h2>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="text" name="username" id="username" class="form-control" placeholder="Usuario" />
-					<input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" />
+					<input type="password" name="password" id="password" class="form-control" placeholder="ContraseÃ±a" />
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
 					<div th:if="${error!=null}">Usuario o clave incorrecto</div>
 					<div th:if="${logout!=null}">Logout correcto</div>

@@ -4,7 +4,6 @@ package com.susan.app.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.susan.app.entity.Hotel;
 import com.susan.app.entity.Servicio;
 import com.susan.app.repository.ServicioRepository;
 

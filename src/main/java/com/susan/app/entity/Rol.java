@@ -9,23 +9,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "userrole")
-public class UserRole {
+@Table(name = "rol")
+public class Rol {
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String role;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "iduser")
-	private User user;
+	private Usuario usuario;
 
-	public UserRole(String role, User user) {
-		super();
-		this.role = role;
-		this.user = user;
-	}
-
-	public UserRole() {
+	public Rol() {
 	}
 
 	public Long getId() {
@@ -44,11 +38,11 @@ public class UserRole {
 		this.role = role;
 	}
 
-	public User getUser() {
-		return user;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

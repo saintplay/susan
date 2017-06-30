@@ -13,7 +13,7 @@
 </style>
 
 <body>
-    <div th:replace="fragments/menu :: menu">&nbsp;</div>
+    <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
     <div class='container full-height'>
         <div class='row' style='height: 42%'>
             <div class='col-sm-offset-4 col-sm-4' style='height: 100%' align='center'>
@@ -21,8 +21,8 @@
             </div>
         </div>
         <div class='row top-buffer'>
-            <div class='col-sm-offset-5 col-sm-2' align='center'>
-                <a type='button' class='btn btn-brand brand-color-a' href='/login.jsp'>Ingresar</a>
+            <div class='col-sm-offset-4 col-sm-2' align='center'>
+            	<h1 th:text="'Hola ' + ${username} + '!'"></h1>
             </div>
         </div>
     </div>

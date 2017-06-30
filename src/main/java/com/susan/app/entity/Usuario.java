@@ -9,31 +9,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name="usuarios")
+public class Usuario {
 	@Id
 	private String username;
 	private String password;
 	private boolean enable;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private List<UserRole> userRole = new ArrayList<UserRole>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
+	private List<Rol> rol = new ArrayList<Rol>();
 
-	public User(String username, String password, boolean enable) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.enable = enable;
-	}
-
-	public User(String username, String password, boolean enable, List<UserRole> userRole) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.enable = enable;
-		this.userRole = userRole;
-	}
-
-	public User() {
+	public Usuario() {
 		super();
 	}
 
@@ -61,11 +46,11 @@ public class User {
 		this.enable = enable;
 	}
 
-	public List<UserRole> getUserRole() {
-		return userRole;
+	public List<Rol> getRol() {
+		return rol;
 	}
 
-	public void setUserRole(List<UserRole> userRole) {
-		this.userRole = userRole;
+	public void setRol(List<Rol> rol) {
+		this.rol = rol;
 	}
 }

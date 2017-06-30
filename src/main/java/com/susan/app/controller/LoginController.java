@@ -28,7 +28,7 @@ public class LoginController {
 				 .getContext().getAuthentication()
 				 .getPrincipal();
 		model.addAttribute("username", user.getUsername());
-		return "panel";
+		return "hoteles";
 	}
 	
 }

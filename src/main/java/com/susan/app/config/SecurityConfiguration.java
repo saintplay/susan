@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -24,21 +22,13 @@ public class SecurityConfiguration
 	//Servira para añadire el userDetails que se creo con anterioridad
 	@Autowired
 	public void configureClobal(AuthenticationManagerBuilder auth) throws Exception{
-		CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
 		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-        http.addFilterBefore(filter,CsrfFilter.class);
-
 		http.authorizeRequests()
-			.antMatchers( "/", "/about", "hoteles").permitAll()
+			.antMatchers( "/", "/about", "/hoteles").permitAll()
 			.antMatchers("/css/*","/img/*","/js/*").permitAll()
 			.anyRequest().authenticated()
 			.and()
@@ -52,10 +42,7 @@ public class SecurityConfiguration
 			
 			.logout().logoutUrl("/logout").
 			  logoutSuccessUrl("/login?logout")
-			.permitAll();
-		
-		http.addFilterBefore(filter,CsrfFilter.class);
-		
+			.permitAll();		
 	}
 
 }

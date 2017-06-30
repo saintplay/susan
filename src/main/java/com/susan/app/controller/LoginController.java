@@ -1,7 +1,5 @@
 package com.susan.app.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +21,7 @@ public class LoginController {
 	
 	@GetMapping({"/loginsuccess"})
 	public String loginCheck(Model model ){
-		//Objeto User de Spring Security, metodo getPrincipal obtener el usuario principal de la sesion
-		User user=(User) SecurityContextHolder
-				 .getContext().getAuthentication()
-				 .getPrincipal();
-		model.addAttribute("username", user.getUsername());
-		return "hoteles";
+		return "redirect:/reservas";
 	}
 	
 }

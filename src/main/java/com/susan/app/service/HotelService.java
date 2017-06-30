@@ -7,7 +7,6 @@ import com.susan.app.entity.Hotel;
 import com.susan.app.repository.HotelRepository;
 
 @Service
-
 public class HotelService implements IHotelService {
 
 	@Autowired

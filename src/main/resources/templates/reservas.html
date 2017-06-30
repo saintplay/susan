@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es" th:replace="fragments/header :: header"> </head>
+<style>
+    #logo-container {
+        position: relative;
+        background-image: url('/img/susan.png');
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
+    <div class='container'>
+        <div class='row top-buffer'>
+            <div class='col-12' align='center'>
+				<table class="table">
+					<tr>
+						<th>Fecha Entrada</th>
+						<th>Fecha Salida</th>
+						<th>Fecha Reserva</th>
+						<th>Estado</th>
+						<th>Costo Total</th>
+					</tr>
+					<tr th:each="reserva : ${reservas}">
+						<td th:text="${reserva.getFechaDesde()}"></td>
+						<td th:text="${reserva.getFechaHasta()}"></td>
+						<td th:text="${reserva.getFechaReserva()}"></td>
+						<td th:text="${reserva.getEstado()}? 'Cancelado' : 'No Cancelado'"></td>
+						<td th:text="${reserva.getCostoTotal()}"></td>
+					</tr>
+				</table>
+			</div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+</body>
+</html>

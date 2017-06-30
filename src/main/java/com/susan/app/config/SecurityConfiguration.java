@@ -12,14 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)//Nos permite escribir anotacion para controlar el acceso a los metodos segun la seguridad
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfiguration 
   extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private UserDetailsService userService;
 
-	//Servira para añadire el userDetails que se creo con anterioridad
 	@Autowired
 	public void configureClobal(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
@@ -28,20 +27,21 @@ public class SecurityConfiguration
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers( "/", "/about", "/hoteles").permitAll()
+			.antMatchers( "/", "/about").permitAll()
 			.antMatchers("/css/*","/img/*","/js/*").permitAll()
+			.antMatchers("/reservar","/reservas","/reservas/*").hasAnyRole("USER,ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			
 			.formLogin().loginPage("/login").
-			  loginProcessingUrl("/logincheck")
+			loginProcessingUrl("/logincheck")
 			.usernameParameter("username").
-			   passwordParameter("password")
+			passwordParameter("password")
 			.defaultSuccessUrl("/login/loginsuccess").permitAll()
 			.and()
 			
 			.logout().logoutUrl("/logout").
-			  logoutSuccessUrl("/login?logout")
+			logoutSuccessUrl("/login?logout")
 			.permitAll();		
 	}
 

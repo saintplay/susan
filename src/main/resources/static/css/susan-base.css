@@ -95,6 +95,43 @@ body {
 .row-container {
 	background-color: #fff;
 }
+
+.wrapper {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-susan {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.form-susan .form-susan-heading,
+.form-susan .checkbox {
+  margin-bottom: 30px;
+}
+.form-susan .checkbox {
+  font-weight: normal;
+}
+.form-susan .form-control:focus {
+  z-index: 2;
+}
+.form-susan input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-susan input[type="password"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-susan .btn {
+	margin-top: 28px;
+}
+
 .footer {
 	 position: absolute;
 	 right: 0;

@@ -2,25 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="es" th:replace="fragments/header :: header"> </head>
 <style>
-    #logo-container {
-        position: relative;
-        background-image: url('/img/susan.png');
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 100%;
-        height: 100%;
-    }
 </style>
 
 <body>
     <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
-    <div class='container'>
-        <div class='row top-buffer'>
-            <div class='col-sm-offset-4 col-sm-2' align='center'>
-            	<h1>Nueva Reserva</h1>
+    <div id="reserva-vue" class='container'>
+        <div class='row'>
+            <div class='col-2 col-8' align='center'>
+            	<div class="wrapper">
+	            	<form class="form-susan" th:action="@{/reservar}" method="POST">
+						<h2 class="form-susan-heading">Nueva Reserva</h2>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<div class="form-group">
+							<label for="hotel">Hotel</label>
+							<select name="hotel" id="hotelid" class="form-control" autofocus>
+								<option v-for="hotel in hoteles" :value="hotel.id">{{hotel.nombre}}</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="fechadesde">Feche de Entrada</label>
+							<input type="date" name="fechadesde" v-model="fechadesde" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label for="fechasalida">Fecha de Salida</label>
+							<input type="date" name="fechahasta" v-model="fechahasta" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label for="costototal">Costo Total</label>
+							<input type="number" step="0.01" name="costototal" v-model="costototal" class="form-control" readonly/>
+						</div>
+						<button class="btn btn-md btn-primary btn-block" type="submit">Reservar</button>
+					</form>
+            	</div>	
             </div>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <script th:inline="javascript">
+    	var hoteles = [[${hoteles}]];
+    	
+    	var reseva_vue = new Vue({
+    		el: "#reserva-vue",
+    		data: {
+    			hoteles: hoteles,
+    			fechadesde: moment().format("YYYY-MM-DD"),
+    			fechahasta: moment().add(7,'days').format("YYYY-MM-DD"),
+    		},
+    		computed: {
+    			costototal: function() {
+    				return 0;
+    			}
+    		}
+    	});
+    </script>
 </body>
 </html>

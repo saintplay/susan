@@ -20,7 +20,7 @@ public class LoginController {
 	}
 	
 	@GetMapping({"/loginsuccess"})
-	public String loginCheck(Model model ){
+	public String loginCheck(Model model) {
 		return "redirect:/reservas";
 	}
 	

@@ -1,41 +1,59 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="es" th:replace="fragments/header :: header"> </head>
-<style>
-    #logo-container {
-        position: relative;
-        background-image: url('/img/susan.png');
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 100%;
-        height: 100%;
-    }
-</style>
-
 <body>
     <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
-    <div class='container'>
+    <div id="reservas-vue" class='container'>
         <div class='row top-buffer'>
             <div class='col-12' align='center'>
-				<table class="table">
+				<table v-if="reservas.length != 0" class="table">
 					<tr>
+						<th v-if="is_admin">Usuario</th>
 						<th>Fecha Entrada</th>
 						<th>Fecha Salida</th>
 						<th>Fecha Reserva</th>
 						<th>Estado</th>
 						<th>Costo Total</th>
 					</tr>
-					<tr th:each="reserva : ${reservas}">
-						<td th:text="${reserva.getFechaDesde()}"></td>
-						<td th:text="${reserva.getFechaHasta()}"></td>
-						<td th:text="${reserva.getFechaReserva()}"></td>
-						<td th:text="${reserva.getEstado()}? 'Cancelado' : 'No Cancelado'"></td>
-						<td th:text="${reserva.getCostoTotal()}"></td>
+					<tr v-for="reserva in reservas">
+						<td v-if="is_admin" class="capital">{{reserva.username}}</td>
+						<td>{{properDate(reserva.fechadesde)}}</td>
+						<td>{{properDate(reserva.fechahasta)}}</td>
+						<td>{{properDate(reserva.fechareserva)}}</td>
+						<td>{{getEstado(reserva.estado)}}</td>
+						<td>{{reserva.costototal}}</td>
 					</tr>
 				</table>
+				<div v-else><strong>Aun no tienes niguna reserva!</strong></div>
 			</div>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <script th:inline="javascript">
+    
+    	var reservas = JSON.parse(/*[[${reservas}]]*/);
+    	
+    	var app = new Vue({
+    		el: "#reservas-vue",
+    		data: {
+    			reservas: reservas,
+    			is_admin: /*[[${rol=='ROLE_ADMIN'}]]*/
+    		},
+    		methods: {
+				properDate(date) {
+					return date.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3-$2-$1")
+				},
+    			getEstado: function(estado) {
+    				if (estado == 1) {
+    					return "Cancelado";
+    				}
+    				else {
+    					return "Pendiente";
+    				}
+    			}
+    			
+    		}
+    	});
+    </script>
 </body>
 </html>

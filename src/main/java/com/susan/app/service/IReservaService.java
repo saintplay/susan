@@ -1,8 +1,7 @@
 package com.susan.app.service;
 
-import java.util.Date;
-
 import com.susan.app.entity.Reserva;
+import com.susan.app.entity.Usuario;
 
 public interface IReservaService {
 	public Iterable<Reserva> findAll();
@@ -13,5 +12,5 @@ public interface IReservaService {
 
 	public void delete(Long id);
 
-	public Iterable<Reserva> findByFechareserva(Date fechareserva);
+	public Iterable<Reserva> findByUsuario(Usuario usuario);
 }

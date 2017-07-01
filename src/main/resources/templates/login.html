@@ -8,8 +8,8 @@
 			<p th:if="${logout!=null}" class="bg-primary">Gracias por usar Susan</p>
 			<p th:if="${error!=null}" class="bg-primary">Usuario o contraseña incorrecta</p>
 			<div class="wrapper">
-				<form class="form-signin" th:action="@{/logincheck}" method="POST">
-					<h2 class="form-signin-heading">Iniciar Sesión</h2>
+				<form class="form-susan" th:action="@{/logincheck}" method="POST">
+					<h2 class="form-susan-heading">Iniciar Sesión</h2>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="text" name="username" id="username" class="form-control" placeholder="Usuario" autofocus/>
 					<input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" />

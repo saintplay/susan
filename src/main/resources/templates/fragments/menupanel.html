@@ -16,12 +16,17 @@
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="menu-opciones">
-				<ul class="nav navbar-nav">
-					<li><a href="https://github.com/saintplay/susan">Github</a></li>
-					<li><a href="/reservas">Reservas</a></li>
+				<ul th:if='${rol=="ROLE_ADMIN"}' class="nav navbar-nav">
+					<li><a href="/reservar">Reservar</a></li>
+					<li><a href="/reservas">Lista</a></li>
 					<li><a href="/hoteles">Hoteles</a></li>
 				</ul>
+				<ul th:if='${rol=="ROLE_USER"}' class="nav navbar-nav">
+					<li><a href="/reservar">Reservar</a></li>
+					<li><a href="/reservas">Mis Reservas</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="https://github.com/saintplay/susan">Github</a></li>
 					<li>
 						<a href="#" onclick="document.getElementById('form-logout').submit();">Cerrar Sesión</a>
 					</li>

@@ -46,7 +46,7 @@ public class Reserva {
 	private Date fechareserva;
 
 	@Column(name="costo_total")
-	private String costototal;
+	private float costototal;
 
 	public Long getId() {
 		return id;
@@ -104,11 +104,11 @@ public class Reserva {
 		this.fechareserva = fechareserva;
 	}
 
-	public String getCostoTotal() {
+	public float getCostoTotal() {
 		return costototal;
 	}
 
-	public void setCostoTotal(String costototal) {
+	public void setCostoTotal(float costototal) {
 		this.costototal = costototal;
 	}
 }

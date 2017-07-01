@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.susan.app.entity.Rol;
+import com.susan.app.entity.Usuario;
 import com.susan.app.repository.UsuarioRepository;
 
 @Service
@@ -63,6 +64,10 @@ public class UsuarioService implements UserDetailsService {
 		}
 
 		return authorities;
+	}
+
+	public Usuario findOne(String username) {
+		return userRepository.findOne(username);
 	}
 
 }

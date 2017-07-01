@@ -1,21 +1,28 @@
 package com.susan.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="servicio")
 public class Servicio {
   
   @Id
+  @Column(name="id")
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Long id;
   
-  @Size(min = 4, max = 30, message = "nombre debe tener mas de 4 letras y menos de 30")
+  @Column(name="nombre")
   private String nombre;
+  
+  @Column(name="descripcion")
   private String descripcion;
+  
+  @Column(name="costo")
   private float costo;
   
   public Servicio() {

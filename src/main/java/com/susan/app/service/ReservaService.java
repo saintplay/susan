@@ -1,11 +1,10 @@
 package com.susan.app.service;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.susan.app.entity.Reserva;
+import com.susan.app.entity.Usuario;
 import com.susan.app.repository.ReservaRepository;
 
 @Service
@@ -35,8 +34,8 @@ public class ReservaService implements IReservaService {
 	}
 
 	@Override
-	public Iterable<Reserva> findByFechareserva(Date fechareserva) {
-		return reservaRepository.findByFechareserva(fechareserva);
+	public Iterable<Reserva> findByUsuario(Usuario usuario) {
+		return reservaRepository.findByUsuario(usuario);
 	}
 
 

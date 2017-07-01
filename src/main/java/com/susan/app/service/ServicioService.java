@@ -20,31 +20,26 @@ public class ServicioService implements IServicioService {
   
   @Override
   public void save(Servicio servicio) {
-  	// TODO Auto-generated method stub
   	servicioRepository.save(servicio);
   }
 
   @Override
   public Servicio findOne(Long id) {
-  	// TODO Auto-generated method stub
   	return servicioRepository.findOne(id);
   }
 
   @Override
   public void delete(Long id) {
-  	// TODO Auto-generated method stub
   	servicioRepository.delete(id);
   }
 
   @Override
   public Servicio findByNombre(String nombre) {
-  	// TODO Auto-generated method stub
   	return servicioRepository.findByNombre(nombre);
   }
 
   @Override
   public Iterable<Servicio> findByNombreContaining(String nombre) {
-  	// TODO Auto-generated method stub
   	return servicioRepository.findByNombreContaining(nombre);
   }
 }

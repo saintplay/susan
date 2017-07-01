@@ -6,9 +6,11 @@
     <div id="reservas-vue" class='container'>
         <div class='row top-buffer'>
             <div class='col-12' align='center'>
-				<table v-if="reservas.length != 0" class="table">
+				<table v-if="reservas.length != 0" class="table text-center">
 					<tr>
 						<th v-if="is_admin">Usuario</th>
+						<th>Hotel</th>
+						<th>Habitación</th>
 						<th>Fecha Entrada</th>
 						<th>Fecha Salida</th>
 						<th>Fecha Reserva</th>
@@ -17,11 +19,13 @@
 					</tr>
 					<tr v-for="reserva in reservas">
 						<td v-if="is_admin" class="capital">{{reserva.username}}</td>
+						<td>{{properDate(reserva.hotelname)}}</td>
+						<td>{{properDate(reserva.habitacionname)}}</td>
 						<td>{{properDate(reserva.fechadesde)}}</td>
 						<td>{{properDate(reserva.fechahasta)}}</td>
 						<td>{{properDate(reserva.fechareserva)}}</td>
 						<td>{{getEstado(reserva.estado)}}</td>
-						<td>{{reserva.costototal}}</td>
+						<td>S/. {{reserva.costototal}}</td>
 					</tr>
 				</table>
 				<div v-else><strong>Aun no tienes niguna reserva!</strong></div>

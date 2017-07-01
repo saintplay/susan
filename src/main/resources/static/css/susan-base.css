@@ -10,6 +10,10 @@ body {
 	height: 100%;
 }
 
+th {
+	text-align: center;
+}
+
 .navbar-default {
 	background-color: #fff;
 }
@@ -102,7 +106,7 @@ body {
 }
 
 .form-susan {
-  max-width: 500px;
+  max-width: 650px;
   padding: 15px 35px 45px;
   margin: 0 auto;
   background-color: #fff;

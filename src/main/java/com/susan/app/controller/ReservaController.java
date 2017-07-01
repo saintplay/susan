@@ -1,7 +1,12 @@
 package com.susan.app.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,10 +22,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.susan.app.entity.Habitacion;
 import com.susan.app.entity.Hotel;
 import com.susan.app.entity.Reserva;
 import com.susan.app.entity.Servicio;
 import com.susan.app.entity.Usuario;
+import com.susan.app.service.HabitacionService;
 import com.susan.app.service.IHotelService;
 import com.susan.app.service.IReservaService;
 import com.susan.app.service.IServicioService;
@@ -39,6 +46,8 @@ public class ReservaController {
 	private IServicioService servicioService;
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private HabitacionService habitacionService;
 
 	@RequestMapping("/reservas")
 	@GetMapping
@@ -63,6 +72,8 @@ public class ReservaController {
 
 		for (Reserva reserva : reservas) {
 			JsonNode reserva_node = mapper.createObjectNode();
+			((ObjectNode) reserva_node).put("hotelname", reserva.getHabitacion().getHotel().getNombre());
+			((ObjectNode) reserva_node).put("habitacionname", reserva.getHabitacion().getNombre());
 			((ObjectNode) reserva_node).put("username", reserva.getUsuario().getUsername());
 			((ObjectNode) reserva_node).put("fechadesde", reserva.getFechaDesde().toString());
 			((ObjectNode) reserva_node).put("fechahasta", reserva.getFechaHasta().toString());
@@ -85,19 +96,38 @@ public class ReservaController {
 		model.addAttribute("servicios", servicios);
 		Iterable<Hotel> hoteles = hotelService.findAll();
 		model.addAttribute("hoteles", hoteles);
+		Iterable<Habitacion> habitaciones = habitacionService.findAll();
+		model.addAttribute("habitaciones", habitaciones);
 
 		return Vista.enviar(model, authentication, "reservar");
 	}
 	
 	@RequestMapping("/reservar/new")
 	@PostMapping
-	public String saveReserva(Model model, Authentication authentication) {
-		Iterable<Servicio> servicios = servicioService.findAll();
-		model.addAttribute("servicios", servicios);
-		Iterable<Hotel> hoteles = hotelService.findAll();
-		model.addAttribute("hoteles", hoteles);
-
-		return "redirect:/reservas";
+	public String saveReserva(HttpServletRequest request, Model model) throws ParseException {
+		Reserva reserva = new Reserva();
+		SimpleDateFormat datef = new SimpleDateFormat("yyyy-mm-dd");
+		
+		Long habitacionid = Long.parseLong(request.getParameter("habitacionid"));
+		String usuarioid = request.getParameter("usuarioid");
+		Date fechadesde = datef.parse(request.getParameter("fechadesde"));
+		Date fechahasta = datef.parse(request.getParameter("fechahasta"));
+		Date fechareserva = datef.parse(request.getParameter("fechareserva"));
+		float costototal = Float.parseFloat(request.getParameter("costototal"));
+		
+		reserva.setHabitacion(habitacionService.findOne(habitacionid));
+		reserva.setUsuario(usuarioService.findOne(usuarioid));
+		reserva.setFechaDesde(fechadesde);
+		reserva.setFechaHasta(fechahasta);
+		reserva.setFechaReserva(fechareserva);
+		reserva.setCostoTotal(costototal);
+		
+		try {
+			this.reservaService.save(reserva);
+			return "redirect:/reservas";
+		} catch (Exception e) {
+			return "redirect:/reservar";
+		}
 	}
 	
 }

@@ -29,7 +29,7 @@ public class SecurityConfiguration
 		http.authorizeRequests()
 			.antMatchers( "/", "/about").permitAll()
 			.antMatchers("/css/*","/img/*","/js/*").permitAll()
-			.antMatchers("/reservar","/reservas","/reservas/*").hasAnyRole("USER,ADMIN")
+			.antMatchers("/reservar","/reservas","/reservas/*","/reservar/*").hasAnyRole("USER,ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			

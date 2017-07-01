@@ -9,13 +9,14 @@
     <div id="reserva-vue" class='container'>
         <div class='row'>
             <div class='col-1 col-10' align='center'>
-            	<form class="form-susan" th:action="@{/reservar}" method="POST">
+            	<form class="form-susan" th:action="@{/reservar/new}" method="POST">
 					<h2 class="form-susan-heading">Reservar</h2>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="hidden" name="fechareserva" v-model="fechareserva" />
+					<input type="hidden" name="usuarioid" v-model="username" />
 					<div class="form-group">
 						<label for="hotel">Hotel</label>
-						<select name="hotel" id="hotelid" class="form-control" autofocus>
+						<select name="hotelid" v-model="hotelid" class="form-control" autofocus>
 							<option v-for="hotel in hoteles" :value="hotel.id">{{hotel.nombre}}</option>
 						</select>
 					</div>
@@ -26,6 +27,21 @@
 					<div class="form-group">
 						<label for="fechasalida">Fecha de Salida</label>
 						<input type="date" name="fechahasta" v-model="fechahasta" class="form-control"/>
+					</div>
+					<template v-if="habitaciones_disponibles.length != 0">
+					<div class="form-group">
+						<label for="habitacion">Habitacion</label>
+						<select name="habitacionid" v-model="habitacionid" class="form-control">
+							<option v-for="habitacion in habitaciones_disponibles" :value="habitacion.id">{{habitacion.nombre}}</option>
+						</select>
+						<img :src="habitacion.foto" width="325" style="padding: 24px 2px;">
+						<div class="text-left">
+							<div style="padding-bottom: 10px;">
+								<strong>Piso: </strong>{{habitacion.piso}}
+								<span class="pull-right" style="padding-right: 16px; font-size: 18px;"><strong>S./ </strong>{{habitacion.precio}}</span>
+							</div>
+							<p><strong>Descripción: </strong>{{habitacion.descripcion}}</p>
+						</div>
 					</div>
 					<div class="form-group">
 						<label class="h3">Servicios</label>
@@ -41,6 +57,10 @@
 						<input type="hidden" step="0.01" name="costototal" v-model="costototal" class="form-control"/>
 					</div>
 					<button class="btn btn-md btn-primary btn-block" type="submit">Reservar</button>
+					</template>
+					<div v-else class="form-group" class="text-center">
+						<label>No hay habitaciones disponibles</label>
+					</div>
 				</form>
             </div>
         </div>
@@ -51,26 +71,58 @@
     		el: "#reserva-vue",
     		data: {
     			hoteles: /*[[${hoteles}]]*/{},
+    			hotelid: 0,
+    			habitaciones: /*[[${habitaciones}]]*/{},
+    			habitacionid: 0,
     			servicios: /*[[${servicios}]]*/{},
+    			username: /*[[${username}]]*/,
     			servicios_selecionados: [],
     			fechareserva: moment().format("YYYY-MM-DD"),
     			fechadesde: moment().format("YYYY-MM-DD"),
     			fechahasta: moment().add(7,'days').format("YYYY-MM-DD"),
     		},
+    		watch: {
+    			hotelid: function(new_value) {
+    				var vm = this;
+    				if (vm.habitaciones_disponibles.length != 0) {
+    					vm.habitacionid = vm.habitaciones_disponibles[0].id;    						
+    				}
+    				else {
+    					vm.habitacionid = null;
+    				}
+    			}
+    		},
     		computed: {
+ 				habitaciones_disponibles: function() {
+ 					var vm = this;
+ 					return this.habitaciones.filter(h => h.hotel.id == vm.hotelid);
+ 				},
+ 				habitacion: function() {
+ 					var vm = this;
+ 					
+ 					if (vm.habitacionid == null) {
+ 						return null;
+ 					}
+ 					return this.habitaciones.find(h => h.id == vm.habitacionid);
+ 				},
     			costototal: function() {
     				var costo = 0;
     
     				for (var i=0; i < this.servicios_selecionados.length; i++) {
-    					costo += this.servicios.find(
+    					costo += parseFloat(this.servicios.find(
  							s => s.id == this.servicios_selecionados[i]
- 						).costo;
+ 						).costo);
     				}
+    				
+    				costo = parseFloat(costo) +  parseFloat(this.habitacion.precio);
 
     				return costo;
     			}
     		}
     	});
+    	
+    	app.hotelid = app.hoteles[0]? app.hoteles[0].id : 0;
+    	app.habitacionid = app.hoteles[0]? app.hoteles[0].id: 0;
     </script>
 </body>
 </html>

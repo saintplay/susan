@@ -3,30 +3,35 @@
 <head lang="es" th:replace="fragments/header :: header"> </head>
 <body>
     <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
-    <div id="reservas-vue" class='container'>
+    <div id="reservas-vue" class='container content-container'>
         <div class='row top-buffer'>
             <div class='col-12' align='center'>
-				<table v-if="reservas.length != 0" class="table text-center">
-					<tr>
-						<th v-if="is_admin">Usuario</th>
-						<th>Hotel</th>
-						<th>Habitación</th>
-						<th>Fecha Entrada</th>
-						<th>Fecha Salida</th>
-						<th>Fecha Reserva</th>
-						<th>Estado</th>
-						<th>Costo Total</th>
-					</tr>
-					<tr v-for="reserva in reservas">
-						<td v-if="is_admin" class="capital">{{reserva.username}}</td>
-						<td>{{properDate(reserva.hotelname)}}</td>
-						<td>{{properDate(reserva.habitacionname)}}</td>
-						<td>{{properDate(reserva.fechadesde)}}</td>
-						<td>{{properDate(reserva.fechahasta)}}</td>
-						<td>{{properDate(reserva.fechareserva)}}</td>
-						<td>{{getEstado(reserva.estado)}}</td>
-						<td>S/. {{reserva.costototal}}</td>
-					</tr>
+				<table v-if="reservas.length != 0" class="table table-striped text-center">
+					<thead>
+						<tr>
+							<th v-if="is_admin">Usuario</th>
+							<th>Hotel</th>
+							<th>Habitación</th>
+							<th>Fecha Entrada</th>
+							<th>Fecha Salida</th>
+							<th>Fecha Reserva</th>
+							<th>Estado</th>
+							<th>Costo Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="reserva in reservas">
+							<td v-if="is_admin" class="capital">{{reserva.username}}</td>
+							<td>{{properDate(reserva.hotelname)}}</td>
+							<td>{{properDate(reserva.habitacionname)}}</td>
+							<td>{{properDate(reserva.fechadesde)}}</td>
+							<td>{{properDate(reserva.fechahasta)}}</td>
+							<td>{{properDate(reserva.fechareserva)}}</td>
+							<td v-if="reserva.estado"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
+							<td v-else><button class="btn btn-sm btn-success">Marcar Pagado</button></td>
+							<td>S/. {{reserva.costototal}}</td>
+						</tr>
+					</tbody>
 				</table>
 				<div v-else><strong>Aun no tienes niguna reserva!</strong></div>
 			</div>

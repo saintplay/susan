@@ -27,8 +27,11 @@
 							<td>{{properDate(reserva.fechadesde)}}</td>
 							<td>{{properDate(reserva.fechahasta)}}</td>
 							<td>{{properDate(reserva.fechareserva)}}</td>
-							<td v-if="reserva.estado"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
-							<td v-else><button class="btn btn-sm btn-success">Marcar Pagado</button></td>
+							<template v-if="is_admin">
+								<td v-if="reserva.estado==1"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
+								<td v-else><button class="btn btn-sm btn-success" @click="marcarPagado(reserva)">Marcar Pagado</button></td>
+							</template>
+							<td v-else>{{getEstado(reserva.estado)}}</button></td>
 							<td>S/. {{reserva.costototal}}</td>
 						</tr>
 					</tbody>
@@ -49,7 +52,7 @@
     			is_admin: /*[[${rol=='ROLE_ADMIN'}]]*/
     		},
     		methods: {
-				properDate(date) {
+				properDate: function(date) {
 					return date.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3-$2-$1")
 				},
     			getEstado: function(estado) {
@@ -59,6 +62,24 @@
     				else {
     					return "Pendiente";
     				}
+    			},
+    			marcarPagado: function(reserva) {
+					var vm = this;
+    				$.ajax({
+    					url: "/reservas/marcarpagado",
+    					method: "POST",
+    					data: {
+    						reservaid: reserva.reservaid,
+    						[[${_csrf.parameterName}]]: [[${_csrf.token}]]
+    					}
+    				})
+    				.done(function(response){
+    					vm.reservas = JSON.parse(response.reservas);
+    				})
+    				.fail(function(error) {
+    					console.log(error.responseJSON.message);
+    				});
+    				
     			}
     			
     		}

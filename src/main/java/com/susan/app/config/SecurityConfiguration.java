@@ -29,7 +29,9 @@ public class SecurityConfiguration
 		http.authorizeRequests()
 			.antMatchers( "/", "/about").permitAll()
 			.antMatchers("/css/*","/img/*","/js/*").permitAll()
-			.antMatchers("/reservar","/reservas","/reservas/*","/reservar/*").hasAnyRole("USER,ADMIN")
+			.antMatchers("/reservas").hasAnyRole("USER, ADMIN")
+			.antMatchers("/reservas/marcarpagado").hasAnyRole("ADMIN")
+			.antMatchers("/reservar","/reservar/*").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and()
 			

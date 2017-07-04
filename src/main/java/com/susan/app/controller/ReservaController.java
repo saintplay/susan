@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,11 +50,8 @@ public class ReservaController {
 	private UsuarioService usuarioService;
 	@Autowired
 	private HabitacionService habitacionService;
-
-	@RequestMapping("/reservas")
-	@GetMapping
-	public String reservas(Model model, Authentication authentication) throws JsonProcessingException {
-		
+	
+	String getReservasData(Model model, Authentication authentication) throws JsonProcessingException {
 		Iterable<Reserva> reservas = null;
 		
 		User user = (User) SecurityContextHolder
@@ -66,12 +65,13 @@ public class ReservaController {
 		else if (Security.tieneRol(authentication, "ROLE_ADMIN")) {
 			reservas = reservaService.findAll();
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		List<JsonNode> list_node = new ArrayList<JsonNode>();
 
+		List<JsonNode> list_node = new ArrayList<JsonNode>();
+		ObjectMapper mapper = new ObjectMapper();
+		
 		for (Reserva reserva : reservas) {
 			JsonNode reserva_node = mapper.createObjectNode();
+			((ObjectNode) reserva_node).put("reservaid", reserva.getId().toString());
 			((ObjectNode) reserva_node).put("hotelname", reserva.getHabitacion().getHotel().getNombre());
 			((ObjectNode) reserva_node).put("habitacionname", reserva.getHabitacion().getNombre());
 			((ObjectNode) reserva_node).put("username", reserva.getUsuario().getUsername());
@@ -83,9 +83,14 @@ public class ReservaController {
 			list_node.add(reserva_node);
 		}
 
-		String reservas_json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list_node);
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list_node);
+	}
+	
+	@RequestMapping("/reservas")
+	@GetMapping
+	public String reservas(Model model, Authentication authentication) throws JsonProcessingException {	
+		String reservas_json = getReservasData(model, authentication);
 		model.addAttribute("reservas", reservas_json);
-		
 		return Vista.enviar(model, authentication, "reservas");
 	}
 	
@@ -128,6 +133,21 @@ public class ReservaController {
 		} catch (Exception e) {
 			return "redirect:/reservar";
 		}
+	}
+	
+	@RequestMapping(value="/reservas/marcarpagado", produces="application/json", method=RequestMethod.POST)
+	public @ResponseBody JsonNode marcarPagado(HttpServletRequest request, Model model, Authentication authentication) throws ParseException, JsonProcessingException {
+		Long reservaid = Long.parseLong(request.getParameter("reservaid"));
+		Reserva reserva = this.reservaService.findOne(reservaid);
+		reserva.setEstado("1");
+		this.reservaService.save(reserva);
+
+		String reservas_json = getReservasData(model, authentication);
+
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode response = mapper.createObjectNode();
+		((ObjectNode) response).put("reservas", reservas_json);
+		return response;
 	}
 	
 }

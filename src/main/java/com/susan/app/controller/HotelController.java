@@ -23,7 +23,6 @@ import com.susan.app.entity.Hotel;
 import com.susan.app.service.IHotelService;
 import com.susan.app.utils.Vista;
 
-
 @Controller
 @RequestMapping("/hoteles")
 public class HotelController {
@@ -96,7 +95,7 @@ public class HotelController {
 	
 	@GetMapping("/editar/{hotelid}")
 	public String editarHotel(@PathVariable Long hotelid, HttpServletRequest request, Model model, Authentication authentication) throws ParseException, JsonProcessingException {
-		Hotel hotel= this.hotelService.findOne(hotelid);
+		Hotel hotel = this.hotelService.findOne(hotelid);
 
 		model.addAttribute("hotelid", hotel.getId());
 		model.addAttribute("nombre", hotel.getNombre());

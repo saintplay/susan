@@ -7,7 +7,7 @@
         <div class='row'>
             <div class='col-5' align='left'>
             	<form class="form-susan" th:action="@{/hoteles/save}" method="POST">
-            		<h2 class="form-susan-heading">Reservar</h2>
+            		<h2 class="form-susan-heading">Editar Hotel</h2>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="hidden" name="hotelid" v-model="hotelid" />
    					<div class="form-group">

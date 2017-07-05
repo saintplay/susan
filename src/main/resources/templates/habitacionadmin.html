@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es" th:replace="fragments/header :: header"> </head>
+<body>
+    <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
+    <div id="habitacion-vue" class='container'>
+        <div class='row'>
+            <div class='col-5' align='left'>
+            	<form class="form-susan" th:action="@{/habitaciones/save}" method="POST">
+            		<h2 class="form-susan-heading">Editar Habitación</h2>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="hidden" name="habitacionid" v-model="habitacionid" />
+					<div v-if="habitacionid==-1" class="form-group">
+						<label for="hotel">Hotel</label>
+						<select name="hotelid" v-model="hotelid" class="form-control" autofocus>
+							<option v-for="hotel in hoteles" :value="hotel.id">{{hotel.nombre}}</option>
+						</select>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Nombre</label>
+						<input type="text" name="nombre" v-model="nombre" class="form-control"/>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Piso</label>
+						<input type="number" name="piso" v-model="piso" class="form-control"/>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Número</label>
+						<input type="number" name="numero" v-model="numero" class="form-control"/>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Descripción</label>
+						<textarea name="descripcion" v-model="descripcion" class="form-control" rows="5"></textarea>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Foto</label>
+						<div class="text-center">
+							<img :alt="nombre" :src="foto" />
+							<input type="text" name="foto" v-model="foto" class="form-control">
+						</div>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Precio (S/.)</label>
+						<input type="number" step="0.01" name="precio" v-model="precio" class="form-control"/>
+					</div>
+					<button type="submit" class="btn btn-default">Guardar</button>
+			</form>
+		</div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <script th:inline="javascript">
+    	var app = new Vue({
+    		el: "#habitacion-vue",
+    		data: {
+    			hoteles: /*[[${hoteles}]]*/{},
+    			habitacionid: /*[[${habitacionid}]]*/,
+    			hotelid: /*[[${hotelid}]]*/,
+    			nombre: /*[[${nombre}]]*/,
+    			piso: /*[[${piso}]]*/,
+    			numero: /*[[${numero}]]*/,
+    			descripcion: /*[[${descripcion}]]*/,
+    			foto: /*[[${foto}]]*/,
+    			precio: /*[[${precio}]]*/
+    		}
+    	});
+    	
+    	app.hotelid = app.hoteles[0]? app.hoteles[0].id : 0;
+    </script>
+</body>
+</html>

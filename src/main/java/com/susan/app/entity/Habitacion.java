@@ -24,6 +24,9 @@ public class Habitacion {
 	@Column(name="piso")
 	private int piso;
 	
+	@Column(name="numero")
+	private String numero;
+	
 	@Column(name="descripcion")
 	private String descripcion;
 
@@ -35,7 +38,7 @@ public class Habitacion {
 	private Hotel hotel;
 	
 	@Column(name="precio")
-	private String precio;
+	private float precio;
 	
 	public Long getId() {
 		return id;
@@ -85,11 +88,19 @@ public class Habitacion {
 		this.hotel = hotel;
 	}
 
-	public String getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 }

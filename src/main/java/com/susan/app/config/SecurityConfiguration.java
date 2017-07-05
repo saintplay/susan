@@ -32,6 +32,7 @@ public class SecurityConfiguration
 			.antMatchers("/reservas").hasAnyRole("USER, ADMIN")
 			.antMatchers("/reservas/marcarpagado").hasAnyRole("ADMIN")
 			.antMatchers("/hoteles", "/hoteles/**").hasAnyRole("ADMIN")
+			.antMatchers("/habitaciones", "/habitaciones/**").hasAnyRole("ADMIN")
 			.antMatchers("/reservar","/reservar/*").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and()

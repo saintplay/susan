@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es" th:replace="fragments/header :: header"> </head>
+<body>
+	<div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
+	<div id="habitaciones-vue" class='container-fluid content-container'>
+  		<div class='row top-buffer'>
+ 			<div class='col-12' align='center'>
+ 				<div class="crud-hero">
+	 				<span class="lead pull-left"><strong>Habitaciones</strong></span>
+	 				<a href="/habitaciones/new" class="btn btn-sm btn-primary pull-right">Agregar Habitacion</a>
+ 				</div>
+		        <table v-if="habitaciones.length != 0" class="table table-responsive table-striped text-center">
+					<thead>
+						<tr>
+							<th>Hotel</th>
+							<th>Nombre</th>
+							<th>Piso</th>
+							<th>Número</th>
+							<th>Descripción</th>
+							<th>Foto</th>
+							<th>Precio</th>
+							<th colspan="2">Acciones</th>
+						</tr>
+					</thead>
+					<tr v-for="habitacion in habitaciones">
+						<td>{{habitacion.nombrehotel}}</td>
+						<td>{{habitacion.nombre}}</td>
+						<td>{{habitacion.piso}}</td>
+						<td>{{habitacion.numero}}</td>
+						<td>{{habitacion.descripcion}}</td>
+						<td><em>{{habitacion.foto}}</em></td>
+						<td>{{habitacion.precio}}</td>
+						<td><a :href="'/habitaciones/editar/' + habitacion.habitacionid" class="btn btn-sm btn-warning">Editar</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <script th:inline="javascript">
+    
+    	var habitaciones = JSON.parse(/*[[${habitaciones}]]*/);
+    	
+    	var app = new Vue({
+    		el: "#habitaciones-vue",
+    		data: {
+    			habitaciones: habitaciones,
+    			is_admin: /*[[${rol=='ROLE_ADMIN'}]]*/
+    		}
+    	});
+    </script>
+</body>
+</html>

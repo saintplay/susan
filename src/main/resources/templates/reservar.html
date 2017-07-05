@@ -29,7 +29,7 @@
 					<div class="form-group">
 						<label for="habitacion">Habitacion</label>
 						<select name="habitacionid" v-model="habitacionid" class="form-control">
-							<option v-for="habitacion in habitaciones_disponibles" :value="habitacion.id">{{habitacion.nombre}}</option>
+							<option v-for="habitacion in habitaciones_disponibles" :value="habitacion.id">{{habitacion.piso + "0" + habitacion.numero + " - " + habitacion.nombre}}</option>
 						</select>
 						<img :src="habitacion.foto" width="325" style="padding: 24px 2px;">
 						<div class="text-left">

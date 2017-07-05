@@ -36,7 +36,7 @@
 							<template v-if="is_admin">
 								<td v-if="getEstado(reserva) == 'Pendiente'"><button class="btn btn-sm btn-success" @click="marcarPagado(reserva)">Marcar Pagado</button></td>
 								<td v-if="getEstado(reserva) == 'Pagado'"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
-								<td v-if="getEstado(reserva) == 'No Pagado'"><button class="btn btn-sm btn-nopagado btn-warning" disabled="disabled">No Pagado</button></td>
+								<td v-if="getEstado(reserva) == 'Anulado'"><button class="btn btn-sm btn-nopagado btn-warning" disabled="disabled">Anulado</button></td>
 							</template>
 							<td v-else>{{getEstado(reserva)}}</button></td>
 							<td>S/. {{reserva.costototal}}</td>
@@ -67,11 +67,11 @@
     					return "Pagado";
     				}
     				else {
-    					if (reserva.diasrestantes <= 5) {
+    					if (moment(reserva.fechareserva).diff(moment(),"days") >= 0) {
     						return "Pendiente";
     					}
 	    				else {
-	    					return "No Pagado";
+	    					return "Anulado" ;
 	    				}
     				}
     			},

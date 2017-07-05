@@ -100,7 +100,7 @@ public class ReservaController {
 			((ObjectNode) reserva_node).put("fechadesde", reserva.getFechaDesde().toString());
 			((ObjectNode) reserva_node).put("fechahasta", reserva.getFechaHasta().toString());
 			((ObjectNode) reserva_node).put("fechareserva", reserva.getFechaReserva().toString());
-			((ObjectNode) reserva_node).put("diasrestantes", getDifferenceDays(reserva.getFechaReserva(), hoy));
+			((ObjectNode) reserva_node).put("diasrestantes", getDifferenceDays(reserva.getFechaReserva(), reserva.getFechaDesde()));
 			((ObjectNode) reserva_node).put("estado", reserva.getEstado());
 			((ObjectNode) reserva_node).put("costototal", reserva.getCostoTotal());
 			list_node.add(reserva_node);
@@ -134,7 +134,7 @@ public class ReservaController {
 	@PostMapping
 	public String saveReserva(HttpServletRequest request, Model model) throws ParseException {
 		Reserva reserva = new Reserva();
-		SimpleDateFormat datef = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat datef = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Long habitacionid = Long.parseLong(request.getParameter("habitacionid"));
 		String usuarioid = request.getParameter("usuarioid");

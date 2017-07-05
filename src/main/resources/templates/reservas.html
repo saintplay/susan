@@ -22,16 +22,23 @@
 					<tbody>
 						<tr v-for="reserva in reservas">
 							<td v-if="is_admin" class="capital">{{reserva.username}}</td>
-							<td>{{properDate(reserva.hotelname)}}</td>
-							<td>{{properDate(reserva.habitacionname)}}</td>
+							<td>{{reserva.hotelname}}</td>
+							<td>{{reserva.habitacionname}}</td>
 							<td>{{properDate(reserva.fechadesde)}}</td>
 							<td>{{properDate(reserva.fechahasta)}}</td>
-							<td>{{properDate(reserva.fechareserva)}}</td>
+							<td>
+								{{properDate(reserva.fechareserva)}}
+								<template v-if="getEstado(reserva) == 'Pendiente'">
+								<br />
+								<span :class="'restantes-info ' + getClassRestante(reserva.diasrestantes)">{{getTextRestante(reserva.diasrestantes)}}</span>
+								</template>
+							</td>
 							<template v-if="is_admin">
-								<td v-if="reserva.estado==1"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
-								<td v-else><button class="btn btn-sm btn-success" @click="marcarPagado(reserva)">Marcar Pagado</button></td>
+								<td v-if="getEstado(reserva) == 'Pendiente'"><button class="btn btn-sm btn-success" @click="marcarPagado(reserva)">Marcar Pagado</button></td>
+								<td v-if="getEstado(reserva) == 'Pagado'"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
+								<td v-if="getEstado(reserva) == 'No Pagado'"><button class="btn btn-sm btn-nopagado btn-warning" disabled="disabled">No Pagado</button></td>
 							</template>
-							<td v-else>{{getEstado(reserva.estado)}}</button></td>
+							<td v-else>{{getEstado(reserva)}}</button></td>
 							<td>S/. {{reserva.costototal}}</td>
 						</tr>
 					</tbody>
@@ -55,13 +62,34 @@
 				properDate: function(date) {
 					return date.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3-$2-$1")
 				},
-    			getEstado: function(estado) {
-    				if (estado == 1) {
-    					return "Cancelado";
+    			getEstado: function(reserva) {
+    				if (reserva.estado == 1) {
+    					return "Pagado";
     				}
     				else {
-    					return "Pendiente";
+    					if (reserva.diasrestantes <= 5) {
+    						return "Pendiente";
+    					}
+	    				else {
+	    					return "No Pagado";
+	    				}
     				}
+    			},
+    			getTextRestante: function(diasrestantes) {
+    				if (diasrestantes == 0)
+    					return "Solo hoy";
+    				if (diasrestantes == 1)
+    					return diasrestantes + " día restante";
+    				else
+    					return diasrestantes + " días restantes";
+    			},
+    			getClassRestante: function(diasrestantes) {
+    				if (diasrestantes <= 1)
+    					return "bg-danger";
+    				if (diasrestantes <= 3)
+    					return "bg-warning";
+    				else
+    					return  "bg-info";
     			},
     			marcarPagado: function(reserva) {
 					var vm = this;

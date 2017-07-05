@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,6 +52,11 @@ public class ReservaController {
 	@Autowired
 	private HabitacionService habitacionService;
 	
+	long getDifferenceDays(Date d1, Date d2) {
+	    long diff = d2.getTime() - d1.getTime();
+	    return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+	}
+	
 	String getReservasData(Model model, Authentication authentication) throws JsonProcessingException {
 		Iterable<Reserva> reservas = null;
 		
@@ -68,6 +74,7 @@ public class ReservaController {
 
 		List<JsonNode> list_node = new ArrayList<JsonNode>();
 		ObjectMapper mapper = new ObjectMapper();
+		Date hoy = new Date();
 		
 		for (Reserva reserva : reservas) {
 			JsonNode reserva_node = mapper.createObjectNode();
@@ -78,6 +85,7 @@ public class ReservaController {
 			((ObjectNode) reserva_node).put("fechadesde", reserva.getFechaDesde().toString());
 			((ObjectNode) reserva_node).put("fechahasta", reserva.getFechaHasta().toString());
 			((ObjectNode) reserva_node).put("fechareserva", reserva.getFechaReserva().toString());
+			((ObjectNode) reserva_node).put("diasrestantes", getDifferenceDays(reserva.getFechaReserva(), hoy));
 			((ObjectNode) reserva_node).put("estado", reserva.getEstado());
 			((ObjectNode) reserva_node).put("costototal", reserva.getCostoTotal());
 			list_node.add(reserva_node);

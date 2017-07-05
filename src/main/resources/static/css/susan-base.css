@@ -143,6 +143,15 @@ th {
 .btn-pagado {
 	padding: 6px 32px;
 }
+.btn-nopagado {
+	padding: 6px 22px;
+}
+
+.restantes-info {
+	font-size: 12px;
+    font-weight: bold;
+    padding: 2px 4px;
+}
 
 .footer {
 	 position: absolute;

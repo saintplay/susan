@@ -153,6 +153,14 @@ th {
     padding: 2px 4px;
 }
 
+.crud-hero {
+	padding: 10px 148px;
+}
+
+.fa-star {
+	color: #FFD194;
+}
+
 .footer {
 	 position: absolute;
 	 right: 0;

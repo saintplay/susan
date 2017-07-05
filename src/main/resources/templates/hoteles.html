@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es" th:replace="fragments/header :: header"> </head>
+<body>
+	<div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
+	<div id="hoteles-vue" class='container content-container'>
+  		<div class='row top-buffer'>
+ 			<div class='col-12' align='center'>
+ 				<div class="crud-hero">
+	 				<span class="lead pull-left"><strong>Hoteles</strong></span>
+	 				<a href="/hoteles/new" class="btn btn-sm btn-primary pull-right">Agregar</a>
+ 				</div>
+		        <table v-if="hoteles.length != 0" class="table table-striped text-center">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Diección</th>
+							<th>Calificación</th>
+							<th colspan="2">Acciones</th>
+						</tr>
+					</thead>
+					<tr v-for="hotel in hoteles">
+						<td>{{hotel.nombre}}</td>
+						<td>{{hotel.direccion}}</td>
+						<td><i v-for="star in hotel.calificacion" class="fa fa-star"></i></td>
+						<td><a :href="'/hoteles/editar/' + hotel.hotelid" class="btn btn-sm btn-warning">Editar</a></td>
+						<td><button class="btn btn-sm btn-danger">Eliminar</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <script th:inline="javascript">
+    
+    	var hoteles = JSON.parse(/*[[${hoteles}]]*/);
+    	
+    	var app = new Vue({
+    		el: "#hoteles-vue",
+    		data: {
+    			hoteles: hoteles,
+    			is_admin: /*[[${rol=='ROLE_ADMIN'}]]*/
+    		}
+    	});
+    </script>
+</body>
+</html>

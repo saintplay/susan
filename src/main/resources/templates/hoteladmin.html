@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="es" th:replace="fragments/header :: header"> </head>
+<body>
+    <div th:replace="fragments/menupanel :: menupanel">&nbsp;</div>
+    <div id="hotel-vue" class='container'>
+        <div class='row'>
+            <div class='col-5' align='left'>
+            	<form class="form-susan" th:action="@{/hoteles/save}" method="POST">
+            		<h2 class="form-susan-heading">Reservar</h2>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="hidden" name="hotelid" v-model="hotelid" />
+   					<div class="form-group">
+						<label class="h3">Nombre</label>
+						<input type="text" name="nombre" v-model="nombre" class="form-control"/>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Dirección</label>
+						<input type="text" name="direccion" v-model="direccion" class="form-control"/>
+					</div>
+   					<div class="form-group">
+						<label class="h3">Calificación</label>
+						<select name="calificacion" v-model="calificacion" class="form-control">
+							<option value="5">5</option>
+							<option value="4">4</option>
+							<option value="3">3</option>
+							<option value="2">2</option>
+							<option value="1">1</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-default">Guardar</button>
+			</form>
+		</div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <script th:inline="javascript">
+    	var app = new Vue({
+    		el: "#hotel-vue",
+    		data: {
+    			hotelid: /*[[${hotelid}]]*/,
+    			nombre: /*[[${nombre}]]*/,
+    			direccion: /*[[${direccion}]]*/,
+    			calificacion: /*[[${calificacion}]]*/
+    		}
+    	});
+    </script>
+</body>
+</html>

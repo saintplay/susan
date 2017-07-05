@@ -33,7 +33,7 @@
 								<span :class="'restantes-info ' + getClassRestante(reserva.diasrestantes)">{{getTextRestante(reserva.diasrestantes)}}</span>
 								</template>
 							</td>
-							<template v-if="is_admin">
+							<template v-if="is_admin || is_worker">
 								<td v-if="getEstado(reserva) == 'Pendiente'"><button class="btn btn-sm btn-success" @click="marcarPagado(reserva)">Marcar Pagado</button></td>
 								<td v-if="getEstado(reserva) == 'Pagado'"><button class="btn btn-sm btn-pagado" disabled="disabled">Pagado</button></td>
 								<td v-if="getEstado(reserva) == 'Anulado'"><button class="btn btn-sm btn-nopagado btn-warning" disabled="disabled">Anulado</button></td>
@@ -56,7 +56,8 @@
     		el: "#reservas-vue",
     		data: {
     			reservas: reservas,
-    			is_admin: /*[[${rol=='ROLE_ADMIN'}]]*/
+    			is_admin: /*[[${rol=='ROLE_ADMIN'}]]*/,
+    			is_worker: /*[[${rol=='ROLE_WORKER'}]]*/
     		},
     		methods: {
 				properDate: function(date) {

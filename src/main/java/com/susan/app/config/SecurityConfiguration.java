@@ -30,7 +30,7 @@ public class SecurityConfiguration
 			.antMatchers( "/", "/about").permitAll()
 			.antMatchers("/css/*","/img/*","/js/*").permitAll()
 			.antMatchers("/reservas").hasAnyRole("USER, WORKER, ADMIN")
-			.antMatchers("/reservas/marcarpagado").hasAnyRole("ADMIN")
+			.antMatchers("/reservas/marcarpagado").hasAnyRole("ADMIN, WORKER")
 			.antMatchers("/hoteles", "/hoteles/**").hasAnyRole("WORKER, ADMIN")
 			.antMatchers("/habitaciones", "/habitaciones/**").hasAnyRole("WORKER, ADMIN")
 			.antMatchers("/reservar","/reservar/*").hasAnyRole("USER")

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.susan.app.entity.Hotel;
+import com.susan.app.entity.Usuario;
 import com.susan.app.service.IHotelService;
+import com.susan.app.service.UsuarioService;
+import com.susan.app.utils.Security;
 import com.susan.app.utils.Vista;
 
 @Controller
@@ -29,11 +34,28 @@ public class HotelController {
 
 	@Autowired
 	private IHotelService hotelService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	String getHotelesData(Model model, Authentication authentication) throws JsonProcessingException {
 		Iterable<Hotel> hoteles = null;
 		
-		hoteles  = hotelService.findAll();
+		User user = (User) SecurityContextHolder
+				 .getContext().getAuthentication()
+				 .getPrincipal();
+		
+		String username = user.getUsername();
+		
+		if (Security.tieneRol(authentication, "ROLE_ADMIN")) {
+			hoteles = hotelService.findAll();
+		}
+		else if (Security.tieneRol(authentication, "ROLE_WORKER")) {
+			Usuario usuario = usuarioService.findOne(username);
+			long hotelid = usuario.getHotel().getId();
+
+			hoteles = new ArrayList<Hotel>();
+			((ArrayList<Hotel>) hoteles).add(hotelService.findOne(hotelid));
+		}
 
 		List<JsonNode> list_node = new ArrayList<JsonNode>();
 		ObjectMapper mapper = new ObjectMapper();

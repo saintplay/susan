@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +23,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.susan.app.entity.Habitacion;
 import com.susan.app.entity.Hotel;
+import com.susan.app.entity.Usuario;
 import com.susan.app.service.IHabitacionService;
 import com.susan.app.service.IHotelService;
+import com.susan.app.service.UsuarioService;
+import com.susan.app.utils.Security;
 import com.susan.app.utils.Vista;
 
 @Controller
@@ -33,12 +38,27 @@ public class HabitacionController {
 	private IHabitacionService habitacionService;
 	@Autowired
 	private IHotelService hotelService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	String getHabitacionesData(Model model, Authentication authentication) throws JsonProcessingException {
 		Iterable<Habitacion> habitaciones = null;
 		
-		habitaciones  = habitacionService.findAll();
-
+		User user = (User) SecurityContextHolder
+				 .getContext().getAuthentication()
+				 .getPrincipal();
+		
+		String username = user.getUsername();
+		
+		if (Security.tieneRol(authentication, "ROLE_ADMIN")) {
+			habitaciones = habitacionService.findAll();
+		}
+		else if (Security.tieneRol(authentication, "ROLE_WORKER")) {
+			Usuario usuario = usuarioService.findOne(username);
+			Hotel hotel = usuario.getHotel();
+			habitaciones = habitacionService.findByHotel(hotel);
+		}
+		
 		List<JsonNode> list_node = new ArrayList<JsonNode>();
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -106,7 +126,25 @@ public class HabitacionController {
 	@RequestMapping("/new")
 	@GetMapping
 	public String mostrarNuevo(Model model, Authentication authentication) {
-		Iterable<Hotel> hoteles = hotelService.findAll();
+		Iterable<Hotel> hoteles = null;
+		
+		User user = (User) SecurityContextHolder
+				 .getContext().getAuthentication()
+				 .getPrincipal();
+		
+		String username = user.getUsername();
+		
+		if (Security.tieneRol(authentication, "ROLE_ADMIN")) {
+			hoteles = hotelService.findAll();
+		}
+		else if (Security.tieneRol(authentication, "ROLE_WORKER")) {
+			Usuario usuario = usuarioService.findOne(username);
+			long hotelid = usuario.getHotel().getId();
+
+			hoteles = new ArrayList<Hotel>();
+			((ArrayList<Hotel>) hoteles).add(hotelService.findOne(hotelid));
+		}
+
 		model.addAttribute("hoteles", hoteles);
 		model.addAttribute("habitacionid", -1);
 		model.addAttribute("foto", "http://lorempixel.com/output/city-q-c-400-400-1.jpg");

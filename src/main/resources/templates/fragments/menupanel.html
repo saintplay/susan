@@ -16,7 +16,7 @@
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="menu-opciones">
-				<ul th:if='${rol=="ROLE_ADMIN"}' class="nav navbar-nav">
+				<ul th:if='${rol=="ROLE_ADMIN" || rol=="ROLE_WORKER"}' class="nav navbar-nav">
 					<li><a href="/reservas">Lista</a></li>
 					<li><a href="/hoteles">Hoteles</a></li>
 					<li><a href="/habitaciones">Habitaciones</a></li>

@@ -38,6 +38,4 @@ public class ReservaService implements IReservaService {
 		return reservaRepository.findByUsuario(usuario);
 	}
 
-
-
 }

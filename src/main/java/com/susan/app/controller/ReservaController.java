@@ -64,12 +64,27 @@ public class ReservaController {
 				 .getContext().getAuthentication()
 				 .getPrincipal();
 		
+		String username = user.getUsername();
+		
 		if (Security.tieneRol(authentication, "ROLE_USER")) {
-			Usuario usuario = usuarioService.findOne(user.getUsername());
+			Usuario usuario = usuarioService.findOne(username);
 			reservas = reservaService.findByUsuario(usuario);
 		}
 		else if (Security.tieneRol(authentication, "ROLE_ADMIN")) {
 			reservas = reservaService.findAll();
+		}
+		else if (Security.tieneRol(authentication, "ROLE_WORKER")) {
+			Usuario usuario = usuarioService.findOne(username);
+			long hotelid = usuario.getHotel().getId();
+
+			Iterable<Reserva> reservas_todas = reservaService.findAll();
+			reservas = new ArrayList<Reserva>();
+					
+			for (Reserva reserva: reservas_todas) {
+				if (reserva.getHabitacion().getHotel().getId() == hotelid) {
+					((ArrayList<Reserva>) reservas).add(reserva);
+				}
+			}
 		}
 
 		List<JsonNode> list_node = new ArrayList<JsonNode>();

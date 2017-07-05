@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +20,10 @@ public class Usuario {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario")
 	private List<Rol> rol = new ArrayList<Rol>();
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "hotelid")
+	private Hotel hotel;
+	
 	public Usuario() {
 		super();
 	}
@@ -52,5 +58,13 @@ public class Usuario {
 
 	public void setRol(List<Rol> rol) {
 		this.rol = rol;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 }

@@ -6,6 +6,9 @@
     <div id="reserva-vue" class='container'>
         <div class='row'>
             <div class='col-1 col-10' align='center'>
+            	<div v-if="error">
+            		<span class="bg-danger">{{error}}</span>
+            	</div>
             	<form class="form-susan" th:action="@{/reservar/new}" method="POST">
 					<h2 class="form-susan-heading">Reservar</h2>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -53,7 +56,7 @@
 						<label for="costototal">Costo Total: S/. {{costototal}}</label>
 						<input type="hidden" step="0.01" name="costototal" v-model="costototal" class="form-control"/>
 					</div>
-					<button class="btn btn-md btn-primary btn-block" type="submit">Reservar</button>
+					<button class="btn btn-md btn-primary btn-block" type="button" @click="reservar">Reservar</button>
 					</template>
 					<div v-else class="form-group" class="text-center">
 						<label>No hay habitaciones disponibles</label>
@@ -67,6 +70,7 @@
     	var app = new Vue({
     		el: "#reserva-vue",
     		data: {
+    			error: "",
     			hoteles: /*[[${hoteles}]]*/{},
     			hotelid: 0,
     			habitaciones: /*[[${habitaciones}]]*/{},
@@ -114,6 +118,27 @@
     				costo = parseFloat(costo) +  parseFloat(this.habitacion.precio);
 
     				return costo;
+    			}
+    		},
+    		methods: {
+    			reservar: function(e) {
+    				e.preventDefault();
+   					var vm = this;
+   	
+    				// Validacion de Fecha de Inicio
+    				if (moment(vm.fechadesde).diff(moment(),"days") < 0) {
+    					vm.error = "Debe ingresar una fecha posterior a hoy";
+    					return;
+    				}
+    				
+    				// Validacion de Fecha de Fin
+    				if (moment(vm.fechahasta).diff(moment(vm.fechadesde),"days") < 0) {
+    					vm.error = "La reserva mínima es de un día";
+    					return;
+    				}
+    			
+    				// Habitacion ya reservas
+    				$(".form-susan").submit();
     			}
     		}
     	});
